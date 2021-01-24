@@ -1,6 +1,6 @@
 # django-nba-starter
 
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+![GitHub](https://img.shields.io/github/license/pwelagedara/django_nba_starter)
 [![Build Status](https://travis-ci.com/pwelagedara/django_nba_starter.svg?branch=main)](https://travis-ci.com/pwelagedara/django_nba_starter)
 [![Coverage Status](https://coveralls.io/repos/github/pwelagedara/django_nba_starter/badge.svg?branch=main)](https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main)
 
