@@ -1,7 +1,13 @@
 language: python
 python:
   - "3.9"
+
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
+
 script:
-  - python manage.py test
+  - coverage run --source=api_services manage.py test
+
+after_success:
+  - coveralls

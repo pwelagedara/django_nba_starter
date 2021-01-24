@@ -1,6 +1,6 @@
 # django-nba-starter
 
-[![Build Status](https://travis-ci.com/pwelagedara/django_nba_starter.svg?branch=main)](https://travis-ci.com/github/pwelagedara/django_nba_starter)
+[![Build Status](https://travis-ci.com/pwelagedara/django_nba_starter.svg?branch=main)](https://travis-ci.com/pwelagedara/django_nba_starter)
 
 ## Assumptions
 
