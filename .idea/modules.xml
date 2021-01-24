@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../django-nba-starter/.idea/django_nba_starter.iml" filepath="$PROJECT_DIR$/../django-nba-starter/.idea/django_nba_starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/django_nba_starter.iml" filepath="$PROJECT_DIR$/.idea/django_nba_starter.iml" />
     </modules>
   </component>
 </project>
