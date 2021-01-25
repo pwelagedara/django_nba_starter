@@ -13,6 +13,7 @@ drf-enum-field==0.9.3
 gunicorn==20.0.4
 idna==2.10
 names==0.3.0
+psycopg2-binary==2.8.6
 pytz==2020.5
 requests==2.25.1
 sqlparse==0.4.1
