@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,14 +84,15 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd337n58rm3e1ar',
-        'USER': 'tkvholxjcixvgz',
-        'PASSWORD': '9d3901abf23220366c7b73150f9007b2920a2174e4bdaa584190c4018b2a80c5',
-        'HOST': 'ec2-52-2-82-109.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'd337n58rm3e1ar',
+    #     'USER': 'tkvholxjcixvgz',
+    #     'PASSWORD': '9d3901abf23220366c7b73150f9007b2920a2174e4bdaa584190c4018b2a80c5',
+    #     'HOST': 'ec2-52-2-82-109.compute-1.amazonaws.com',
+    #     'PORT': '5432',
+    # }
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
 
