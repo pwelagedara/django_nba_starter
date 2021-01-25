@@ -5,7 +5,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/pwelagedara/django_nba_starter)](https://github.com/pwelagedara/django_nba_starter/graphs/commit-activity)
 [![Build Status](https://travis-ci.com/pwelagedara/django_nba_starter.svg?branch=main)](https://travis-ci.com/pwelagedara/django_nba_starter)
 [![Coverage Status](https://coveralls.io/repos/github/pwelagedara/django_nba_starter/badge.svg?branch=main)](https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main)
-![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m787020082-9e83ac06bbfdca2eeaffe9d1)
+[![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m787020082-9e83ac06bbfdca2eeaffe9d1)](https://django-nba-services.herokuapp.com/api/)
 
 ## Assumptions
 
