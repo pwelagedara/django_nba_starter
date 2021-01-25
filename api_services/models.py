@@ -111,11 +111,18 @@ class Coach(models.Model):
 
 class Tournament(models.Model):
     """Database model for a Tournament"""
+
+    class Meta:
+        ordering = ['id']
+
     name = models.CharField(max_length=255, default="NBA")
 
 
 class TournamentRound(models.Model):
     """Database model for a Tournament Round"""
+
+    class Meta:
+        ordering = ['id']
 
     tournament = models.ForeignKey(
         Tournament,

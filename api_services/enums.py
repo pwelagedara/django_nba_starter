@@ -10,6 +10,6 @@ class RoleChoice(Enum):
 
 class TournamentRoundChoice(Enum):
     FIRST_ROUND = "FIRST_ROUND"
-    QUARTER_FINALS = "ADMIN"
+    QUARTER_FINALS = "QUARTER_FINALS"
     SEMI_FINALS = "SEMI_FINALS"
     FINALS = "FINALS"

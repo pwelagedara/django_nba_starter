@@ -1,0 +1,1 @@
+web: gunicorn django_nba_starter.wsgi
