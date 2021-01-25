@@ -17,4 +17,5 @@
 ## License
 
 https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+
 https://django-nba-services.herokuapp.com
