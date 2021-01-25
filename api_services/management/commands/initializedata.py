@@ -53,7 +53,7 @@ class Command(BaseCommand):
             home_team_players = list(home_team.player_set.all())
             away_team_players = list(away_team.player_set.all())
             all_players = home_team_players + away_team_players
-            number_of_scoring_shots = random.randint(5, 25)
+            number_of_scoring_shots = random.randint(25, 30)
 
             for j in range(number_of_scoring_shots):
                 models.PlayerScore.objects.create(

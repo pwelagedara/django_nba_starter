@@ -12,7 +12,7 @@ class UserInfoSerializer(EnumFieldSerializerMixin, serializers.ModelSerializer):
         fields = ('id', 'email', 'name', 'role')
 
 
-class TeamSerializer(EnumFieldSerializerMixin, serializers.ModelSerializer):
+class TeamSerializer(serializers.ModelSerializer):
     """Serializes a Team"""
 
     class Meta:
@@ -20,7 +20,7 @@ class TeamSerializer(EnumFieldSerializerMixin, serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class GameSerializer(EnumFieldSerializerMixin, serializers.ModelSerializer):
+class GameSerializer(serializers.ModelSerializer):
     """Serializes a Game"""
 
     class Meta:
@@ -43,7 +43,7 @@ class TournamentRoundSerializer(EnumFieldSerializerMixin, serializers.ModelSeria
     games = GameSerializer(source='game_set', many=True)
 
 
-class TournamentSerializer(EnumFieldSerializerMixin, serializers.ModelSerializer):
+class TournamentSerializer(serializers.ModelSerializer):
     """Serializes a Tournament object"""
 
     class Meta:
@@ -59,3 +59,30 @@ class BasicTournamentSerializer(EnumFieldSerializerMixin, serializers.ModelSeria
     class Meta:
         model = models.Tournament
         fields = ('id', 'name')
+
+
+class BasicTeamSerializer(serializers.ModelSerializer):
+    """Serializes a Team for GET /team endpoint"""
+
+    class Meta:
+        model = models.Team
+        fields = ('id', 'name', 'arena_name')
+
+
+class BasicUserSerializer(serializers.ModelSerializer):
+    """Serializes a User for GET /team/{id} endpoint"""
+
+    class Meta:
+        model = models.User
+        fields = ('id', 'name')
+
+
+class DetailedTeamSerializer(serializers.ModelSerializer):
+    """Serializes a Team for GET /team/{id} endpoint"""
+
+    class Meta:
+        model = models.Team
+        fields = ('id', 'name', 'arena_name', 'team_average', 'team_players')
+
+    team_average = serializers.FloatField(source='get_average_team_score')
+    team_players = serializers.ListSerializer(source='get_team_players_as_users', child=BasicUserSerializer())

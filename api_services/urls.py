@@ -6,6 +6,7 @@ from api_services import views
 router = DefaultRouter()
 router.register('userinfo', views.UserInfoViewSet)
 router.register('tournament', views.TournamentViewSet)
+router.register('team', views.TeamViewSet)
 
 urlpatterns = [
     path('login', views.LoginAPIView.as_view()),

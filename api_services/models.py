@@ -63,6 +63,31 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+    def get_team_players(self):
+        return list(self.player_set.all())
+
+    def get_average_team_score(self):
+
+        players = self.get_team_players()
+
+        team_total_score = 0
+        for player in players:
+            player_scores = player.playerscore_set.all()
+            for player_score in player_scores:
+                team_total_score += player_score.points
+
+        total_games = len(self.away_team.all()) + len(self.home_team.all())
+
+        return team_total_score/total_games
+
+    def get_team_players_as_users(self):
+        players = self.get_team_players()
+
+        users = []
+        for player in players:
+            users.append(player.user)
+
+        return users
 
 class Player(models.Model):
     """Database model for a Player which extends User"""
