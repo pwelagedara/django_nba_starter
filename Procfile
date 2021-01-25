@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --no-input; gunicorn django_nba_starter.wsgi
+web: gunicorn django_nba_starter.wsgi
