@@ -147,3 +147,9 @@ django_heroku.settings(locals())
 if os.environ.get('IS_HEROKU', None):
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
