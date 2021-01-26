@@ -38,5 +38,5 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command: pytest
+          command: coverage run --source=api_services manage.py test
 
