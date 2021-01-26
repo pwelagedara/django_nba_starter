@@ -245,27 +245,32 @@ class PlayerAverageDBView(DBView):
 
     player_average = models.FloatField(default=0.0)
 
-    view_definition = """  
-    SELECT 
+    db_script = """
+    SELECT
         apl.player_id, COALESCE(apl.player_average, 0.0) AS player_average,  apisp.team_id
     FROM
     (
         SELECT
             asp.user_id AS player_id, a.player_average AS player_average
         FROM api_services_player AS asp
-        LEFT JOIN 
+        LEFT JOIN
         (
             SELECT
-                pid AS player_id, ROUND(AVG(player_score),2) AS player_average 
+                pid AS player_id, ROUND(AVG(player_score),2) AS player_average
             FROM
             (
-                SELECT player_id AS pid, SUM(points) AS player_score 
-                FROM api_services_playerscore 
+                SELECT player_id AS pid, SUM(points) AS player_score
+                FROM api_services_playerscore
                 GROUP BY player_id, game_id
             ) player_totals GROUP BY pid
         ) a ON asp.user_id=a.player_id
     ) apl INNER JOIN api_services_player AS apisp ON apl.player_id=apisp.user_id
     """
+
+    view_definition = {
+        "django.db.backends.sqlite3": db_script,
+        "django.db.backends.postgresql": db_script
+    }
 
 
 class TeamPlayerScoresDBView(DBView):
@@ -287,7 +292,7 @@ class TeamPlayerScoresDBView(DBView):
 
     player_score = models.IntegerField(default=0)
 
-    view_definition = """
+    db_script = """
     SELECT 
         row_number() over () AS id, player_totals.pid AS player_id, pl.team_id,  player_totals.player_score 
     FROM 
@@ -297,3 +302,8 @@ class TeamPlayerScoresDBView(DBView):
         GROUP BY player_id, game_id
     ) player_totals INNER JOIN api_services_player AS pl ON player_totals.pid=pl.user_id
     """
+
+    view_definition = {
+        "django.db.backends.sqlite3": db_script,
+        "django.db.backends.postgresql": db_script
+    }
