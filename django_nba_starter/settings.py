@@ -141,6 +141,7 @@ STATICFILES_DIRS = (
 
 AUTH_USER_MODEL = 'api_services.User'
 
+
 # Activate Django-Heroku.
 django_heroku.settings(locals(), test_runner=False)
 
@@ -152,6 +153,5 @@ if os.environ.get('IS_HEROKU', None):
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
