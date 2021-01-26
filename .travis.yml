@@ -3,8 +3,8 @@ python:
   - "3.9"
 
 install:
-  - sed '/django-heroku==/d' requirements.txt > requirements-build.txt
-  - pip install -r requirements.txt
+  - sed '/django-heroku==/d' requirements.txt > requirements-travis.txt
+  - pip install -r requirements-travis.txt
 
 script:
   - coverage run --source=api_services manage.py test --keepdb
