@@ -1,10 +1,11 @@
+import numpy
+
 from rest_framework import viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-import numpy
 
 from api_services import serializers
 from api_services import models
