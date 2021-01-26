@@ -14,6 +14,8 @@ Description goes here... & my contact details( blog & email address)
 
 ## Getting started
 
+Mention the data generation script
+
 ### Local development
 
 #### Without venv
