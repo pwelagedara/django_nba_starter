@@ -41,7 +41,13 @@ Mention the data generation script
 ### Local development environment
 
 #### Using virtual environments
-
+```
+pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % python -m venv venv
+pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % source ./venv/bin/activate
+(venv) pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % python --version
+Python 3.9.1
+(venv) pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % pip install -r requirements.txt
+```
 #### Without virtual environments
 
 ### Cloud deployment

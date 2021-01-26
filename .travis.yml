@@ -4,7 +4,6 @@ python:
 
 install:
   - pip install -r requirements.txt
-  - pip install coveralls
 
 script:
   - coverage run --source=api_services manage.py test
