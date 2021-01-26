@@ -142,9 +142,11 @@ STATICFILES_DIRS = (
 AUTH_USER_MODEL = 'api_services.User'
 
 # Activate Django-Heroku.
+django_heroku.settings(locals(), test_runner=False)
+
+
 # Update database config for production
 if os.environ.get('IS_HEROKU', None):
-    django_heroku.settings(locals())
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
