@@ -93,7 +93,21 @@ class BasicPlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Player
-        fields = ('height',)
+        fields = ('height', 'user')
+
+    user = BasicUserSerializer()
+
+
+class BasicPlayerAverageDBViewSerializer(serializers.ModelSerializer):
+    """Serializes a Player for GET /player endpoint"""
+
+    class Meta:
+        model = models.PlayerAverageDBView
+        fields = ('player', 'team', 'player_average')
+
+    player = BasicPlayerSerializer()
+    team = TeamSerializer()
+
 
 
 

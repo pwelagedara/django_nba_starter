@@ -229,22 +229,41 @@ class PlayerAverageDBView(DBView):
 
     class Meta:
         managed = False
+        ordering = ['player_id']
 
-    player = models.ForeignKey(
+    player = models.OneToOneField(
         Player,
+        on_delete=models.CASCADE,
+        primary_key=True
+    )
+
+    team = models.ForeignKey(
+        Team,
         on_delete=models.DO_NOTHING
     )
+
     player_average = models.FloatField(default=0.0)
 
-    view_definition = """
-    SELECT
-        row_number() over () AS id, pid AS player_id, ROUND(AVG(player_score),2) AS player_average 
+    view_definition = """  
+    SELECT 
+        apl.player_id, COALESCE(apl.player_average, 0.0) AS player_average,  apisp.team_id
     FROM
     (
-        SELECT player_id AS pid, SUM(points) AS player_score 
-        FROM api_services_playerscore 
-        GROUP BY player_id, game_id
-    ) player_totals GROUP BY pid
+        SELECT
+            asp.user_id AS player_id, a.player_average AS player_average
+        FROM api_services_player AS asp
+        LEFT JOIN 
+        (
+            SELECT
+                pid AS player_id, ROUND(AVG(player_score),2) AS player_average 
+            FROM
+            (
+                SELECT player_id AS pid, SUM(points) AS player_score 
+                FROM api_services_playerscore 
+                GROUP BY player_id, game_id
+            ) player_totals GROUP BY pid
+        ) a ON asp.user_id=a.player_id
+    ) apl INNER JOIN api_services_player AS apisp ON apl.player_id=apisp.user_id
     """
 
 

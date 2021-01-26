@@ -24,6 +24,10 @@ Description goes here... & my contact details( blog & email address)
 
 ## Using Postman collections
 
+### Pre request scripts
+
+### Postman tests
+
 ## Build status
 
 ## Test coverage
@@ -49,6 +53,7 @@ Description goes here... & my contact details( blog & email address)
 - Super Admin is the Django Super User
 - Performance optimization is not a primary concern due to the smaller dataset
 - Home Team and Away Team in a game
+- Supports one Tournament
 
 ## Known issues
 
