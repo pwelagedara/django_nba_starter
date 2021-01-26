@@ -3,6 +3,7 @@ python:
   - "3.9"
 
 install:
+  - sed '/django-heroku==/d' requirements.txt > requirements-build.txt
   - pip install -r requirements.txt
 
 script:

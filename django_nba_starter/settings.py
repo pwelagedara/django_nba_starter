@@ -150,11 +150,18 @@ AUTH_USER_MODEL = 'api_services.User'
 #     print("##########################################2")
 #     import django_heroku
 #     django_heroku.settings(locals())
-print("*********************************1")
-if '/app' in os.environ['HOME']:
-    print("##########################################2")
+# print("*********************************1")
+# if '/app' in os.environ['HOME']:
+#     print("##########################################2")
+#     import django_heroku
+#     django_heroku.settings(locals())
+# Try to import django-heroku depending on Travis or Heroku
+try:
+    # Configure Django App for Heroku.
     import django_heroku
     django_heroku.settings(locals())
+except ImportError:
+    found = False
 
 # Update database config for production
 print("*********************************")

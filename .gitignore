@@ -360,3 +360,4 @@ fabric.properties
 
 .idea
 staticfiles
+requirements-build.txt
