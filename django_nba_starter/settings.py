@@ -144,13 +144,17 @@ AUTH_USER_MODEL = 'api_services.User'
 
 # Activate Django-Heroku.
 # https://github.com/heroku/django-heroku/issues/39
+# print("*********************************1")
+# if 'I_AM_HEROKU' in os.environ:
+#     # Configure Django App for Heroku.
+#     print("##########################################2")
+#     import django_heroku
+#     django_heroku.settings(locals())
 print("*********************************1")
-if 'I_AM_HEROKU' in os.environ:
-    # Configure Django App for Heroku.
+if '/app' in os.environ['HOME']:
     print("##########################################2")
     import django_heroku
     django_heroku.settings(locals())
-
 
 # Update database config for production
 print("*********************************")
