@@ -32,6 +32,7 @@ Description goes here... & my contact details( blog & email address)
 - [Assumptions](#assumptions)
 - [Known issues](#known-issues)
   - [View migration failure for Postgres on Heroku](#view-migration-failure-for-postgres-on-heroku)
+  - [Travis CI build failures](#travis-ci-build-failures)
 - [License❗](#license)
 
 ## Getting started
@@ -130,6 +131,22 @@ CREATE VIEW api_services_teamplayerscoresdbview AS
     ) player_totals INNER JOIN api_services_player AS pl ON player_totals.pid=pl.user_id;
 ```
 
+### Travis CI build failures
+
+```yaml
+language: python
+python:
+  - "3.9"
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - coverage run --source=api_services manage.py test --keepdb
+
+after_success:
+  - coveralls
+```
 ## License
 
 https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
