@@ -8,7 +8,7 @@
 [![pwelagedara](https://circleci.com/gh/pwelagedara/django_nba_starter.svg?style=shield)](https://circleci.com/gh/pwelagedara/django_nba_starter)
 [![Coverage Status](https://coveralls.io/repos/github/pwelagedara/django_nba_starter/badge.svg?branch=main)](https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main)
 
-Description goes here... & my contact details( blog & email address)
+Description goes here... & my contact details( blog & email address).
 
 ## Table of contents
 
@@ -17,6 +17,7 @@ Description goes here... & my contact details( blog & email address)
     - [Using virtual environments](#using-virtual-environments)
     - [Without virtual environments](#without-virtual-environments)
   - [Cloud deployment](#cloud-deployment)
+  - [Endpoints](#endpoints)
 - [Using the Postman collection](#using-the-postman-collection)
   - [Pre request scripts](#pre-request-scripts)
   - [Postman tests](#postman-tests)
@@ -37,7 +38,7 @@ Description goes here... & my contact details( blog & email address)
 
 ## Getting started
 
-Mention the data generation script
+Mention the data generation script. Also mention the url and credentials( mention that you will share the password seperately) to heroku. 
 
 ### Local development environment
 
@@ -52,6 +53,8 @@ Python 3.9.1
 #### Without virtual environments
 
 ### Cloud deployment
+
+### Endpoints
 
 ## Using the Postman collection
 

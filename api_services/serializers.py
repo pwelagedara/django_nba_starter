@@ -109,6 +109,24 @@ class BasicPlayerAverageDBViewSerializer(serializers.ModelSerializer):
     team = TeamSerializer()
 
 
+class DetailedUserSerializer(EnumFieldSerializerMixin, serializers.ModelSerializer):
+    """Serializes a User for GET /user and GET /user/{id} endpoint"""
+
+    class Meta:
+        model = models.User
+        fields = (
+            'id',
+            'email',
+            'name',
+            'is_active',
+            'is_staff',
+            'role',
+            'login_count',
+            'is_online',
+            'total_time_online'
+        )
+
+
 
 
 

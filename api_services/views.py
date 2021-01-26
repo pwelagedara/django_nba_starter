@@ -175,3 +175,17 @@ class PlayerViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.G
         response = super().retrieve(request, *args, **kwargs)
         self.__normalize_response(response.data)
         return Response(response.data)
+
+
+class UserViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """Supports GET /admin/user and GET /admin/user/{id} endpoints"""
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (
+        IsAuthenticated,
+        permissions.IsSuperAdmin | permissions.IsAdmin
+    )
+
+    queryset = models.User.objects.all()
+    pagination_class = DefaultPagination
+    serializer_class = serializers.DetailedUserSerializer
