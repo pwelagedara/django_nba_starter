@@ -140,9 +140,10 @@ STATICFILES_DIRS = (
 
 AUTH_USER_MODEL = 'api_services.User'
 
-
 # Activate Django-Heroku.
-if os.environ.get('IS_HEROKU', None):
+# https://github.com/heroku/django-heroku/issues/39
+if 'I_AM_HEROKU' in os.environ:
+    # Configure Django App for Heroku.
     import django_heroku
     django_heroku.settings(locals())
 
