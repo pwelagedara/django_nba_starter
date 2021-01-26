@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import django_heroku
 import dj_database_url
 import os
 
@@ -143,7 +142,9 @@ AUTH_USER_MODEL = 'api_services.User'
 
 
 # Activate Django-Heroku.
-django_heroku.settings(locals(), test_runner=False)
+if os.environ.get('IS_HEROKU', None):
+    import django_heroku
+    django_heroku.settings(locals())
 
 
 # Update database config for production
