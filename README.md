@@ -22,7 +22,9 @@ Description goes here... & my contact details( blog & email address)
 
 ### Cloud deployment
 
-## Using Postman collections
+## Using the Postman collection
+
+## List of helper scripts
 
 ### Pre request scripts
 

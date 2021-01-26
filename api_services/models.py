@@ -229,6 +229,7 @@ class PlayerAverageDBView(DBView):
 
     class Meta:
         managed = False
+        db_table = 'api_services_playeraveragedbview'
         ordering = ['player_id']
 
     player = models.OneToOneField(
@@ -272,6 +273,7 @@ class TeamPlayerScoresDBView(DBView):
 
     class Meta:
         managed = False
+        db_table = 'api_services_teamplayerscoresdbview'
 
     team = models.ForeignKey(
         Team,
