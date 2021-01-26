@@ -12,30 +12,47 @@ Description goes here... & my contact details( blog & email address)
 
 ## Table of contents
 
-**Table of Contents**
-
 - [Getting started](#getting-started)
+  - [Local development environment](#local-development-environment)
+    - [Using virtual environments](#using-virtual-environments)
+    - [Without virtual environments](#without-virtual-environments)
+  - [Cloud deployment](#cloud-deployment)
+- [Using the Postman collection](#using-the-postman-collection)
+  - [Pre request scripts](#pre-request-scripts)
+  - [Postman tests](#postman-tests)
+- [Helper scripts](#helper-scripts)
+- [Build status](#build-status)
+- [Test coverage](#test-coverage)
+- [Uptime](#uptime)
+- [Database configuration](#database-configuration)
+    - [Database model](#database-model)
+    - [Use of database views](#use-of-database-views)
+- [90th Percentile Calculation](#90th-percentile-calculation)
+- [Performance optimizations](#performance-optimizations)
+- [Assumptions](#assumptions)
+- [Known issues](#known-issues)
+  - [View migration failure for Postgres on Heroku](#view-migration-failure-for-postgres-on-heroku)
 - [License❗](#license)
 
 ## Getting started
 
 Mention the data generation script
 
-### Local development
+### Local development environment
 
-#### Without venv
+#### Using virtual environments
 
-#### Using venv
+#### Without virtual environments
 
 ### Cloud deployment
 
 ## Using the Postman collection
 
-## List of helper scripts
-
 ### Pre request scripts
 
 ### Postman tests
+
+## Helper scripts
 
 ## Build status
 
@@ -43,17 +60,17 @@ Mention the data generation script
 
 ## Uptime
 
-#### Database configuration
+## Database configuration
 
-## Database model
-
-## 90th Percentile Calculation
+### Database model
 
 ### Use of database views
 
-### Performance implications
+## 90th Percentile Calculation
 
 ## Pagination
+
+## Performance optimizations
 
 ## Assumptions
 
@@ -66,7 +83,7 @@ Mention the data generation script
 
 ## Known issues
 
-### View migrations failed for Postgres
+### View migration failure for Postgres on Heroku
 
 ```sql
 /**
