@@ -8,6 +8,40 @@
 [![Build Status](https://travis-ci.com/pwelagedara/django_nba_starter.svg?branch=main)](https://travis-ci.com/pwelagedara/django_nba_starter)
 [![Coverage Status](https://coveralls.io/repos/github/pwelagedara/django_nba_starter/badge.svg?branch=main)](https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main)
 
+Description goes here... & my contact details( blog & email address)
+
+## Table of contents
+
+## Getting started
+
+### Local development
+
+#### Without venv
+
+#### Using venv
+
+### Cloud deployment
+
+## Using Postman collections
+
+## Build status
+
+## Test coverage
+
+## Uptime
+
+#### Database configuration
+
+## Database model
+
+## 90th Percentile Calculation
+
+### Use of database views
+
+### Performance implications
+
+## Pagination
+
 ## Assumptions
 
 - If the scores are equal Away Team wins as that team plays with a disadvantage
@@ -16,6 +50,7 @@
 - Performance optimization is not a primary concern due to the smaller dataset
 - Home Team and Away Team in a game
 
+## Known issues
 
 ## License
 

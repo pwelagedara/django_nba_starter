@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
 from enumfields import EnumField
+from django_db_views.db_view import DBView
 
 from api_services import enums
 
@@ -78,7 +79,7 @@ class Team(models.Model):
 
         total_games = len(self.away_team.all()) + len(self.home_team.all())
 
-        return team_total_score/total_games
+        return team_total_score / total_games
 
     def get_team_players_as_users(self):
         players = self.get_team_players()
@@ -88,6 +89,7 @@ class Team(models.Model):
             users.append(player.user)
 
         return users
+
 
 class Player(models.Model):
     """Database model for a Player which extends User"""
@@ -221,3 +223,56 @@ class PlayerScore(models.Model):
 
     points = models.IntegerField(default=0)
 
+
+class PlayerAverageDBView(DBView):
+    """Database view to store Player averages"""
+
+    class Meta:
+        managed = False
+
+    player = models.ForeignKey(
+        Player,
+        on_delete=models.DO_NOTHING
+    )
+    player_average = models.FloatField(default=0.0)
+
+    view_definition = """
+    SELECT
+        row_number() over () AS id, pid AS player_id, ROUND(AVG(player_score),2) AS player_average 
+    FROM
+    (
+        SELECT player_id AS pid, SUM(points) AS player_score 
+        FROM api_services_playerscore 
+        GROUP BY player_id, game_id
+    ) player_totals GROUP BY pid
+    """
+
+
+class TeamPlayerScoresDBView(DBView):
+    """Database view to store Team scores to aid 90th percentile calculation"""
+
+    class Meta:
+        managed = False
+
+    team = models.ForeignKey(
+        Team,
+        on_delete=models.DO_NOTHING
+    )
+
+    player = models.ForeignKey(
+        Player,
+        on_delete=models.DO_NOTHING
+    )
+
+    player_score = models.IntegerField(default=0)
+
+    view_definition = """
+    SELECT 
+        row_number() over () AS id, player_totals.pid AS player_id, pl.team_id,  player_totals.player_score 
+    FROM 
+    (
+        SELECT player_id AS pid, SUM(points) AS player_score 
+        FROM api_services_playerscore 
+        GROUP BY player_id, game_id
+    ) player_totals INNER JOIN api_services_player AS pl ON player_totals.pid=pl.user_id
+    """

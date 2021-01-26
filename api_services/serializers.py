@@ -86,3 +86,16 @@ class DetailedTeamSerializer(serializers.ModelSerializer):
 
     team_average = serializers.FloatField(source='get_average_team_score')
     team_players = serializers.ListSerializer(source='get_team_players_as_users', child=BasicUserSerializer())
+
+
+class BasicPlayerSerializer(serializers.ModelSerializer):
+    """Serializes a Player for GET /player endpoint"""
+
+    class Meta:
+        model = models.Player
+        fields = ('height',)
+
+
+
+
+

@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from api_services import serializers
 from api_services import models
 from api_services import permissions
-from api_services.pagination import DefaultPagination
+from api_services.paginations import DefaultPagination
 from api_services import enums
 
 
@@ -102,5 +102,18 @@ class TeamViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gen
         return Response(data)
 
 
+class PlayerViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """Supports GET /team and GET /team/{id} endpoints"""
 
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (
+        IsAuthenticated,
+        permissions.IsSuperAdmin | permissions.IsAdmin | permissions.IsCoach
+    )
+
+    queryset = models.Team.objects.none()
+    pagination_class = DefaultPagination
+
+    def get_serializer_class(self):
+        return serializers.BasicPlayerSerializer
 
