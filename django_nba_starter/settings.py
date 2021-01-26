@@ -157,7 +157,7 @@ print("*********************************")
 if os.environ.get('IS_HEROKU', None):
     print("##########################################")
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
+print(DATABASES['default'])
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/'
