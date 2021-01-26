@@ -129,10 +129,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -142,18 +144,23 @@ AUTH_USER_MODEL = 'api_services.User'
 
 # Activate Django-Heroku.
 # https://github.com/heroku/django-heroku/issues/39
+print("*********************************1")
 if 'I_AM_HEROKU' in os.environ:
     # Configure Django App for Heroku.
+    print("##########################################2")
     import django_heroku
     django_heroku.settings(locals())
 
 
 # Update database config for production
+print("*********************************")
 if os.environ.get('IS_HEROKU', None):
+    print("##########################################")
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
+# https://warehouse.python.org/project/whitenoise/'
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
