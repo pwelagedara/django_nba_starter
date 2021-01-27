@@ -3,8 +3,8 @@ import random
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from django.core import management
+from rest_framework.authtoken.models import Token
 
 from api_services import models, enums
 
@@ -15,6 +15,7 @@ def setUpModule():
 
 
 class LoginTestCase(APITestCase):
+    """Test the login endpoint"""
 
     def setUp(self):
         self.correct_password = '1qaz2wsx'
@@ -28,6 +29,8 @@ class LoginTestCase(APITestCase):
         )
 
     def test_login_success(self):
+        """Test login success"""
+
         data = {
             "username": self.user.email,
             "password": self.correct_password
@@ -38,6 +41,8 @@ class LoginTestCase(APITestCase):
         self.assertEqual('token' in response.data.keys(), True)
 
     def test_login_failure(self):
+        """Test login failure when a wrong password is entered"""
+
         data = {
             "username": self.user.email,
             "password": self.wrong_password
@@ -49,6 +54,7 @@ class LoginTestCase(APITestCase):
 
 
 class UserinfoCase(APITestCase):
+    """Test GET /userinfo endpoint"""
 
     def setUp(self):
         self.email = "test@nba.com"
@@ -68,6 +74,8 @@ class UserinfoCase(APITestCase):
         self.user.save()
 
     def test_get_userinfo_success(self):
+        """Test success response"""
+
         self.client.force_authenticate(user=self.user)
         response = self.client.get(self.url)
 
@@ -82,6 +90,8 @@ class UserinfoCase(APITestCase):
         self.assertEqual(response.data['role'], self.role.name)
 
     def test_get_userinfo_authentication_failure(self):
+        """Test failure response without authentication"""
+
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -89,6 +99,7 @@ class UserinfoCase(APITestCase):
 
 
 class TournamentTestCase(APITestCase):
+    """Test GET /tournament endpoints"""
 
     def setUp(self):
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
@@ -104,6 +115,8 @@ class TournamentTestCase(APITestCase):
         self.player = self.players[0]
 
     def test_get_tournament_authentication_failure(self):
+        """Test an authentication failure"""
+
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
         response = self.client.get(self.url)
 
@@ -111,6 +124,8 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_tournament_admin_success(self):
+        """Test successful response for an admin"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -120,6 +135,8 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_tournament_coach_success(self):
+        """Test successful response for coach"""
+
         token = Token.objects.create(user=self.coach)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -129,6 +146,8 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_tournament_player_success(self):
+        """Test successful response for player"""
+
         token = Token.objects.create(user=self.player)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -138,6 +157,8 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_tournament_by_id_success(self):
+        """Test successful response for GET /tournament/{id} endpoint"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.tournament.id}/")
@@ -149,6 +170,8 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('tournament_rounds' in response.data.keys(), True)
 
     def test_get_tournament_by_id_404_failure(self):
+        """Test a 404 response for GET /tournament/{id} endpoint"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.invalid_tournament_id}/")
@@ -158,6 +181,7 @@ class TournamentTestCase(APITestCase):
 
 
 class TeamTestCase(APITestCase):
+    """Test GET /team endpoints"""
 
     def setUp(self):
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
@@ -175,6 +199,8 @@ class TeamTestCase(APITestCase):
         self.team = self.teams[0]
 
     def test_get_team_authentication_failure(self):
+        """Test GET /team endpoint authentication failure by entering an invalid token"""
+
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
         response = self.client.get(self.url)
 
@@ -182,6 +208,8 @@ class TeamTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_team_admin_success(self):
+        """Test successful response for an Admin User"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -191,6 +219,8 @@ class TeamTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_team_coach_success(self):
+        """Test successful response for a Coach"""
+
         token = Token.objects.create(user=self.coach)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -200,6 +230,8 @@ class TeamTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_team_player_failure(self):
+        """Test whether a player gets a 403 error as he/ she is not allowed in"""
+
         token = Token.objects.create(user=self.player)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -208,6 +240,8 @@ class TeamTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_team_by_id_success(self):
+        """Test a successful team details response"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.team.id}/")
@@ -220,6 +254,8 @@ class TeamTestCase(APITestCase):
         self.assertEqual('team_players' in response.data.keys(), True)
 
     def test_get_team_by_id_404_failure(self):
+        """Test a 404 team details response using an invalid Team Id"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.invalid_team_id}/")
@@ -229,6 +265,7 @@ class TeamTestCase(APITestCase):
 
 
 class PlayerTestCase(APITestCase):
+    """Test GET /player endpoints"""
 
     def setUp(self):
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
@@ -243,6 +280,8 @@ class PlayerTestCase(APITestCase):
         self.player = self.players[0]
 
     def test_get_player_authentication_failure(self):
+        """Test GET /player authentication failure by entering an invalid token"""
+
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
         response = self.client.get(self.url)
 
@@ -250,6 +289,8 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_player_admin_success(self):
+        """Test to see if an Admin can access the endpoint"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -259,6 +300,8 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_player_coach_success(self):
+        """Test to see if a Coach can access the endpoint"""
+
         token = Token.objects.create(user=self.coach)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -268,6 +311,8 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_player_coach_90th_percentile_success(self):
+        """Test to see if a Coach can access the 90th percentile"""
+
         token = Token.objects.create(user=self.coach)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}?top_players=true")
@@ -277,6 +322,8 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_player_player_failure(self):
+        """Test to see if a Player cannot access"""
+
         token = Token.objects.create(user=self.player)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -285,6 +332,8 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_player_by_id_success(self):
+        """Test to see if we can get a 200 OK GET /player/{id} response"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.player.id}/")
@@ -297,6 +346,8 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('team' in response.data.keys(), True)
 
     def test_get_player_by_id_404_failure(self):
+        """Test to see if we can get 404 NOT FOUND GET /player/{id} response"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.invalid_player_id}/")
@@ -306,6 +357,7 @@ class PlayerTestCase(APITestCase):
 
 
 class AdminUserTestCase(APITestCase):
+    """Test stats endpoints. Only accessible by the Admin"""
 
     def setUp(self):
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
@@ -320,6 +372,8 @@ class AdminUserTestCase(APITestCase):
         self.player = self.players[0]
 
     def test_get_admin_user_authentication_failure(self):
+        """Test stats endpoints for 401 responses by entering an invalid token"""
+
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
         response = self.client.get(self.url)
 
@@ -327,6 +381,8 @@ class AdminUserTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_admin_user_admin_success(self):
+        """Test success response for an Admin"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -336,6 +392,8 @@ class AdminUserTestCase(APITestCase):
         self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_admin_user_coach_failure(self):
+        """Test failure response for a Coach"""
+
         token = Token.objects.create(user=self.coach)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -344,6 +402,8 @@ class AdminUserTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_admin_user_player_failure(self):
+        """Test failure response for a Player"""
+
         token = Token.objects.create(user=self.player)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
@@ -352,6 +412,8 @@ class AdminUserTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_admin_user_by_id_success(self):
+        """Test success response details endpoint"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.player.id}/")
@@ -368,6 +430,8 @@ class AdminUserTestCase(APITestCase):
         self.assertEqual('total_time_online' in response.data.keys(), True)
 
     def test_get_admin_user_by_id_404_failure(self):
+        """Enter an invalid User Id to see if the endpoints gives a 404"""
+
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.invalid_user_id}/")

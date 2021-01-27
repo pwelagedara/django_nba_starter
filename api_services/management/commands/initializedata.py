@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand, CommandError
 import random
 import names
+
 from copy import deepcopy
+from django.core.management.base import BaseCommand, CommandError
 
 from api_services import models
 from api_services import enums
@@ -9,6 +10,8 @@ from api_services import constants
 
 
 class Command(BaseCommand):
+    """Management command to populate the data."""
+
     help = "Initializes the data for a single tournament"
 
     # noinspection PyMethodMayBeStatic

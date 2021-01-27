@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
 from enumfields import EnumField
 from django_db_views.db_view import DBView
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 from api_services import enums
 
@@ -117,7 +117,7 @@ class Player(models.Model):
 
 
 class Admin(models.Model):
-    """Database model for a Admin which extends User."""
+    """Database model for a Admin which extends User"""
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -188,7 +188,7 @@ class Game(models.Model):
     )
 
     def get_total_points(self):
-        """"Calculates team points"""
+        """"Calculates Team points"""
 
         # Using database view for faster processing
         game_scores = list(self.gamescoresdbview_set.all())
