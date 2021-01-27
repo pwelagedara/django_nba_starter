@@ -98,6 +98,7 @@ class UserinfoCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
 
+# noinspection DuplicatedCode
 class TournamentTestCase(APITestCase):
     """Test GET /tournament endpoints"""
 
@@ -124,7 +125,7 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
     def test_get_tournament_admin_success(self):
-        """Test successful response for an admin"""
+        """Test successful response for an admin. An admin is allowed to access this endpoint"""
 
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
@@ -180,6 +181,7 @@ class TournamentTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
 
+# noinspection DuplicatedCode
 class TeamTestCase(APITestCase):
     """Test GET /team endpoints"""
 
@@ -264,6 +266,7 @@ class TeamTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
 
+# noinspection DuplicatedCode
 class PlayerTestCase(APITestCase):
     """Test GET /player endpoints"""
 
@@ -356,6 +359,7 @@ class PlayerTestCase(APITestCase):
         self.assertEqual('detail' in response.data.keys(), True)
 
 
+# noinspection DuplicatedCode
 class AdminUserTestCase(APITestCase):
     """Test stats endpoints. Only accessible by the Admin"""
 
@@ -430,7 +434,7 @@ class AdminUserTestCase(APITestCase):
         self.assertEqual('total_time_online' in response.data.keys(), True)
 
     def test_get_admin_user_by_id_404_failure(self):
-        """Enter an invalid User Id to see if the endpoints gives a 404"""
+        """Expect a 404 not found for an invalid User Id"""
 
         token = Token.objects.create(user=self.admin)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
