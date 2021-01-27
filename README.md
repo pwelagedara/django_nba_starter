@@ -1,6 +1,6 @@
 # django_nba_starter
 
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m787020082-9e83ac06bbfdca2eeaffe9d1)](https://django-nba-services.herokuapp.com/admin/)
+[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m787020082-9e83ac06bbfdca2eeaffe9d1)](https://django-nba-services.herokuapp.com/api/)
 [![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m787020082-9e83ac06bbfdca2eeaffe9d1)](https://stats.uptimerobot.com/E1wwzTWjDB/787020082)
 [![GitHub](https://img.shields.io/github/license/pwelagedara/django_nba_starter)](https://github.com/pwelagedara/django_nba_starter/blob/main/LICENSE)
 [![GitHub](https://img.shields.io/badge/python-v3.9.1-blue)](https://www.python.org/downloads/)
@@ -30,6 +30,7 @@ Description goes here... & my contact details( blog & email address).
     - [Use of database views](#use-of-database-views)
 - [90th Percentile Calculation](#90th-percentile-calculation)
 - [Performance optimizations](#performance-optimizations)
+- [Exception handling](#exception-handling)
 - [Assumptions](#assumptions)
 - [Known issues](#known-issues)
   - [View migration failure for Postgres on Heroku](#view-migration-failure-for-postgres-on-heroku)
@@ -82,6 +83,8 @@ Python 3.9.1
 
 ## Performance optimizations
 
+## Exception handling
+
 ## Assumptions
 
 - If the scores are equal Away Team wins as that team plays with a disadvantage
@@ -96,6 +99,23 @@ Python 3.9.1
 ### View migration failure for Postgres on Heroku
 
 ```sql
+/**
+  
+ */
+ CREATE VIEW api_services_gamescoresdbview AS
+    SELECT
+        row_number() over () AS id, game_id, team_id, SUM(player_score) AS team_score
+    FROM
+    (
+        SELECT
+            asps.game_id, asps.player_score, asp.team_id
+        FROM
+        (
+            SELECT game_id, player_id, SUM(points) AS player_score
+            FROM api_services_playerscore
+            GROUP BY player_id, game_id
+            ) asps INNER JOIN api_services_player AS asp ON asps.player_id=asp.user_id
+    ) tps GROUP BY game_id, team_id
 /**
   
  */
@@ -155,3 +175,5 @@ after_success:
 https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
 https://django-nba-services.herokuapp.com
+https://www.programmersought.com/article/1055642878/
+https://www.programmersought.com/article/6540642829/

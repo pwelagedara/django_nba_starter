@@ -69,6 +69,7 @@ class Team(models.Model):
 
     def get_average_team_score(self):
 
+        # TODO: Optimize the performance using Database Views
         players = self.get_team_players()
 
         team_total_score = 0
@@ -82,6 +83,7 @@ class Team(models.Model):
         return team_total_score / total_games
 
     def get_team_players_as_users(self):
+
         players = self.get_team_players()
 
         users = []
@@ -182,17 +184,17 @@ class Game(models.Model):
     def get_total_points(self):
         """"Calculates team points"""
 
-        player_scores = list(self.playerscore_set.all())
+        # Using database view for faster processing
+        game_scores = list(self.gamescoresdbview_set.all())
 
         home_team_total = 0
         away_team_total = 0
 
-        for i in range(len(player_scores)):
-            player_score = player_scores[i]
-            if player_score.player.team == player_score.game.home_team:
-                home_team_total += player_score.points
+        for game_score in game_scores:
+            if game_score.team == game_score.game.home_team:
+                home_team_total = game_score.team_score
             else:
-                away_team_total += player_score.points
+                away_team_total = game_score.team_score
 
         return {
             "home_team_total": home_team_total,
@@ -222,6 +224,47 @@ class PlayerScore(models.Model):
     )
 
     points = models.IntegerField(default=0)
+
+
+class GameScoresDBView(DBView):
+    """Database view to store Game scores to aid team total calculation and winner calculation"""
+
+    class Meta:
+        managed = False
+        db_table = 'api_services_gamescoresdbview'
+
+    game = models.ForeignKey(
+        Game,
+        on_delete=models.DO_NOTHING
+    )
+
+    team = models.ForeignKey(
+        Team,
+        on_delete=models.DO_NOTHING
+    )
+
+    team_score = models.IntegerField(default=0)
+
+    db_script = """
+    SELECT
+        row_number() over () AS id, game_id, team_id, SUM(player_score) AS team_score
+    FROM
+    (
+        SELECT
+            asps.game_id, asps.player_score, asp.team_id
+        FROM
+        (
+            SELECT game_id, player_id, SUM(points) AS player_score
+            FROM api_services_playerscore
+            GROUP BY player_id, game_id
+            ) asps INNER JOIN api_services_player AS asp ON asps.player_id=asp.user_id
+    ) tps GROUP BY game_id, team_id
+    """
+
+    view_definition = {
+        "django.db.backends.sqlite3": db_script,
+        "django.db.backends.postgresql": db_script
+    }
 
 
 class PlayerAverageDBView(DBView):
@@ -307,3 +350,5 @@ class TeamPlayerScoresDBView(DBView):
         "django.db.backends.sqlite3": db_script,
         "django.db.backends.postgresql": db_script
     }
+
+
