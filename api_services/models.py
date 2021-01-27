@@ -37,6 +37,9 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """Database model for a User in the system"""
 
+    class Meta:
+        ordering = ['id']
+
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -60,6 +63,9 @@ class Team(models.Model):
 
     name = models.CharField(max_length=255)
     arena_name = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ['id']
 
     def __str__(self):
         return self.name

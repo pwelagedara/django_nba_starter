@@ -16,12 +16,10 @@ def setUpModule():
 
 class LoginTestCase(APITestCase):
 
-    correct_password = '1qaz2wsx'
-    wrong_password = 'thisisawrongpassword'
-    url = '/api/login'
-
     def setUp(self):
-        # print(reverse('LoginAPIView'))
+        self.correct_password = '1qaz2wsx'
+        self.wrong_password = 'thisisawrongpassword'
+        self.url = '/api/login'
         self.user = models.User.objects.create_user(
             "test@nba.com",
             "John Doe",
@@ -37,7 +35,7 @@ class LoginTestCase(APITestCase):
         response = self.client.post(self.url, data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(bool(response.data.get('token')), True)
+        self.assertEqual('token' in response.data.keys(), True)
 
     def test_login_failure(self):
         data = {
@@ -52,12 +50,11 @@ class LoginTestCase(APITestCase):
 
 class UserinfoCase(APITestCase):
 
-    email = "test@nba.com"
-    name = "John Doe"
-    role = enums.RoleChoice.COACH
-    url = '/api/userinfo/'
-
     def setUp(self):
+        self.email = "test@nba.com"
+        self.name = "John Doe"
+        self.role = enums.RoleChoice.COACH
+        self.url = '/api/userinfo/'
         self.user = models.User.objects.create_user(
             self.email,
             self.name,
@@ -75,90 +72,305 @@ class UserinfoCase(APITestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(bool(response.data.get('id')), True)
-        self.assertEqual(bool(response.data.get('email')), True)
-        self.assertEqual(bool(response.data.get('name')), True)
-        self.assertEqual(bool(response.data.get('role')), True)
-        self.assertEqual(response.data.get('email'), self.email)
-        self.assertEqual(response.data.get('name'), self.name)
-        self.assertEqual(response.data.get('role'), self.role.name)
+
+        self.assertEqual('id' in response.data.keys(), True)
+        self.assertEqual('email' in response.data.keys(), True)
+        self.assertEqual('name' in response.data.keys(), True)
+        self.assertEqual('role' in response.data.keys(), True)
+        self.assertEqual(response.data['email'], self.email)
+        self.assertEqual(response.data['name'], self.name)
+        self.assertEqual(response.data['role'], self.role.name)
 
     def test_get_userinfo_authentication_failure(self):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertEqual(bool(response.data.get('detail')), True)
+        self.assertEqual('detail' in response.data.keys(), True)
 
 
 class TournamentTestCase(APITestCase):
 
-    admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
-    coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
-    players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
-    tournament = models.Tournament.objects.get()
-    url = reverse('tournament-list')
-    invalid_token = 'thisisaninvalidtoken'
-    invalid_tournament_id = '1234567890'
-
     def setUp(self):
-        self.coach = random.choice(self.coaches)
-        self.player = random.choice(self.players)
-        self.admin_token = Token.objects.create(user=self.admin)
-        self.coach_token = Token.objects.create(user=self.coach)
-        self.player_token = Token.objects.create(user=self.player)
+        self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
+        self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
+        self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
+        self.tournament = models.Tournament.objects.get()
+        self.url = '/api/tournament/'
+        self.invalid_token = 'thisisaninvalidtoken'
+        self.invalid_tournament_id = '1234567890'
+        random.shuffle(self.coaches)
+        random.shuffle(self.players)
+        self.coach = self.coaches[0]
+        self.player = self.players[0]
 
     def test_get_tournament_authentication_failure(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertEqual(bool(response.data.get('detail')), True)
+        self.assertEqual('detail' in response.data.keys(), True)
 
-    # noinspection DuplicatedCode
     def test_get_tournament_admin_success(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_token.key)
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(bool(response.data.get('count')), True)
-        self.assertEqual(bool(response.data.get('results')), True)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
 
-    # noinspection DuplicatedCode
     def test_get_tournament_coach_success(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.coach_token.key)
+        token = Token.objects.create(user=self.coach)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(bool(response.data.get('count')), True)
-        self.assertEqual(bool(response.data.get('results')), True)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
 
-    # noinspection DuplicatedCode
     def test_get_tournament_player_success(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.player_token.key)
+        token = Token.objects.create(user=self.player)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(bool(response.data.get('count')), True)
-        self.assertEqual(bool(response.data.get('results')), True)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
 
     def test_get_tournament_by_id_success(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_token.key)
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.tournament.id}/")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(bool(response.data.get('id')), True)
-        self.assertEqual(bool(response.data.get('name')), True)
-        self.assertEqual(bool(response.data.get('tournament_winner')), True)
-        self.assertEqual(bool(response.data.get('tournament_rounds')), True)
+        self.assertEqual('id' in response.data.keys(), True)
+        self.assertEqual('name' in response.data.keys(), True)
+        self.assertEqual('tournament_winner' in response.data.keys(), True)
+        self.assertEqual('tournament_rounds' in response.data.keys(), True)
 
     def test_get_tournament_by_id_404_failure(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_token.key)
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = self.client.get(f"{self.url}{self.invalid_tournament_id}/")
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertEqual(bool(response.data.get('detail')), True)
+        self.assertEqual('detail' in response.data.keys(), True)
 
 
-# Team - Admin, Coach, No Player( 403 with no access)
-# Player - Admin, Coach( with top_players query param), No Player( 403 with no access)
+class TeamTestCase(APITestCase):
 
+    def setUp(self):
+        self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
+        self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
+        self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
+        self.teams = list(models.Team.objects.all())
+        self.url = '/api/team/'
+        self.invalid_token = 'thisisaninvalidtoken'
+        self.invalid_team_id = '1234567890'
+        random.shuffle(self.coaches)
+        random.shuffle(self.players)
+        random.shuffle(self.teams)
+        self.coach = self.coaches[0]
+        self.player = self.players[0]
+        self.team = self.teams[0]
+
+    def test_get_team_authentication_failure(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_team_admin_success(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
+
+    def test_get_team_coach_success(self):
+        token = Token.objects.create(user=self.coach)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
+
+    def test_get_team_player_failure(self):
+        token = Token.objects.create(user=self.player)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_team_by_id_success(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}{self.team.id}/")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('id' in response.data.keys(), True)
+        self.assertEqual('name' in response.data.keys(), True)
+        self.assertEqual('arena_name' in response.data.keys(), True)
+        self.assertEqual('team_average' in response.data.keys(), True)
+        self.assertEqual('team_players' in response.data.keys(), True)
+
+    def test_get_team_by_id_404_failure(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}{self.invalid_team_id}/")
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+
+class PlayerTestCase(APITestCase):
+
+    def setUp(self):
+        self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
+        self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
+        self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
+        self.url = '/api/player/'
+        self.invalid_token = 'thisisaninvalidtoken'
+        self.invalid_player_id = '1234567890'
+        random.shuffle(self.coaches)
+        random.shuffle(self.players)
+        self.coach = self.coaches[0]
+        self.player = self.players[0]
+
+    def test_get_player_authentication_failure(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_player_admin_success(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
+
+    def test_get_player_coach_success(self):
+        token = Token.objects.create(user=self.coach)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
+
+    def test_get_player_coach_90th_percentile_success(self):
+        token = Token.objects.create(user=self.coach)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}?top_players=true")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
+
+    def test_get_player_player_failure(self):
+        token = Token.objects.create(user=self.player)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_player_by_id_success(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}{self.player.id}/")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('id' in response.data.keys(), True)
+        self.assertEqual('name' in response.data.keys(), True)
+        self.assertEqual('height' in response.data.keys(), True)
+        self.assertEqual('player_average' in response.data.keys(), True)
+        self.assertEqual('team' in response.data.keys(), True)
+
+    def test_get_player_by_id_404_failure(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}{self.invalid_player_id}/")
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+
+class AdminUserTestCase(APITestCase):
+
+    def setUp(self):
+        self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
+        self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
+        self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
+        self.url = '/api/admin/user/'
+        self.invalid_token = 'thisisaninvalidtoken'
+        self.invalid_user_id = '1234567890'
+        random.shuffle(self.coaches)
+        random.shuffle(self.players)
+        self.coach = self.coaches[0]
+        self.player = self.players[0]
+
+    def test_get_admin_user_authentication_failure(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.invalid_token)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_admin_user_admin_success(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('count' in response.data.keys(), True)
+        self.assertEqual('results' in response.data.keys(), True)
+
+    def test_get_admin_user_coach_failure(self):
+        token = Token.objects.create(user=self.coach)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_admin_user_player_failure(self):
+        token = Token.objects.create(user=self.player)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual('detail' in response.data.keys(), True)
+
+    def test_get_admin_user_by_id_success(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}{self.player.id}/")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual('id' in response.data.keys(), True)
+        self.assertEqual('email' in response.data.keys(), True)
+        self.assertEqual('name' in response.data.keys(), True)
+        self.assertEqual('is_active' in response.data.keys(), True)
+        self.assertEqual('is_staff' in response.data.keys(), True)
+        self.assertEqual('role' in response.data.keys(), True)
+        self.assertEqual('login_count' in response.data.keys(), True)
+        self.assertEqual('is_online' in response.data.keys(), True)
+        self.assertEqual('total_time_online' in response.data.keys(), True)
+
+    def test_get_admin_user_by_id_404_failure(self):
+        token = Token.objects.create(user=self.admin)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get(f"{self.url}{self.invalid_user_id}/")
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual('detail' in response.data.keys(), True)
