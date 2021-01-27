@@ -197,8 +197,8 @@ class Game(models.Model):
                 away_team_total = game_score.team_score
 
         return {
-            "home_team_total": home_team_total,
-            "away_team_total": away_team_total
+            "home_team_total": int(home_team_total),
+            "away_team_total": int(away_team_total)
         }
 
     def get_winning_team(self):
