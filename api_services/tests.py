@@ -10,10 +10,18 @@ from django.core import management
 from api_services import models, serializers, enums
 
 
+def setUpModule():
+    management.call_command('initializedata')
+
+
 class IntegrationTestCase(APITestCase):
 
+    @classmethod
+    def setUpTestData(cls):
+        print("test data=====")
+
+
     def setUp(self):
-        management.call_command('initializedata')
 
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
 
@@ -31,10 +39,21 @@ class IntegrationTestCase(APITestCase):
 
         self.tournament_url = reverse('tournament-list')
 
+        self.correct_password = '1qaz2wsx'
+        self.wrong_password = 'thisisawrongpassword'
+
+    def test_login_failure(self):
+        data = {
+            "username": self.admin.email,
+            "password": self.wrong_password
+        }
+        response = self.client.post('/api/login', data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_login_success(self):
         data = {
-            "username": "admin@nba.com",
-            "password": "1qaz2wsx"
+            "username": self.admin.email,
+            "password": self.correct_password
         }
         response = self.client.post('/api/login', data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
