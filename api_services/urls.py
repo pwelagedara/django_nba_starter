@@ -12,6 +12,5 @@ router.register('admin/user', views.UserViewSet)
 
 urlpatterns = [
     path('login', views.LoginAPIView.as_view()),
-    path('login/', views.LoginAPIView.as_view()),
     path('', include(router.urls)),
 ]
