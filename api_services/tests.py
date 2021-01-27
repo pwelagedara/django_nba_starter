@@ -10,7 +10,7 @@ from django.core import management
 from api_services import models, serializers, enums
 
 
-class LoginTestCase(APITestCase):
+class IntegrationTestCase(APITestCase):
 
     def setUp(self):
         management.call_command('initializedata')

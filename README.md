@@ -88,7 +88,7 @@ Python 3.9.1
 ## Assumptions
 
 - If the scores are equal Away Team wins as that team plays with a disadvantage
-- Analytics data(`total_time_online`) is captured separately using Google Analytics 
+- Analytics data(`total_time_online`) is captured separately using Google Analytics. It is recorded in minutes in the database
 - Super Admin is the Django Super User
 - Performance optimization is not a primary concern due to the smaller dataset
 - Home Team and Away Team in a game
