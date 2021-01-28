@@ -62,20 +62,21 @@ When running the application locally the application will point to the [SQLite][
 #### Using virtual environments( recommended)
 
 Note that you need to have `virtualenv` installed on your machine in addition to the aforementioned dependencies. If you do not have it on your machine please follow the instructions [here][venv] to install it.
-Clone the project and `cd` into the project directory.
+
+**Step 1:** Clone the project and `cd` into the project directory.
 ```shell
 git clone https://github.com/pwelagedara/django_nba_starter
 cd django_nba_starter
 ```
 
-Create the virtual environment, activate virtual environment and install the dependencies.
+**Step 2:** Create the virtual environment, activate virtual environment and install the dependencies.
 ```shell
 python -m venv venv
 source ./venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run the project. Optionally you can load a new dataset.
+**Step 3:** Run the project. Optionally you can load a new dataset.
 ```shell
 python manage.py runserver
 
