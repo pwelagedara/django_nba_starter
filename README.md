@@ -193,7 +193,7 @@ Performing intensive calculations when a request arrives can cause the system to
 
 Some calculations are performed in the database by using database views to minimize the load.
 
-You may notice that the following database views getting created in the database in addition to the tables.
+You may notice that the following database views are getting created in the database in addition to the tables.
 
 - `api_services_gamescoresdbview`
 - `api_services_playeraveragedbview`
@@ -216,13 +216,9 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 ## DevOps tools
 
+[Build status][build], [test coverage][test] and [uptime][uptimerobot] dashboards are available seperately to provide insights into the system. 
 
-
-### Build status
-
-### Test coverage
-
-### Uptime
+> ***NOTE:*** *`Build status` dashboard is not publicly available.*
 
 ## Pagination
 
@@ -247,9 +243,13 @@ The following assumptions have been made to facilitate the development of the pr
 
 ### View migration failure for PostgreSQL on Heroku
 
+It is observed that the database views do not get created in PostgreSQL on Heroku. If that happens create the database views manually.
+
+The select statements for all [three database views](#use-of-database-views) are available in [models.py](api_services/models.py).
+
 ```sql
 /**
-  
+  api_services_gamescoresdbview
  */
  CREATE VIEW api_services_gamescoresdbview AS
     SELECT
@@ -265,62 +265,16 @@ The following assumptions have been made to facilitate the development of the pr
             GROUP BY player_id, game_id
             ) asps INNER JOIN api_services_player AS asp ON asps.player_id=asp.user_id
     ) tps GROUP BY game_id, team_id
-/**
-  
- */
-CREATE VIEW api_services_playeraveragedbview AS
-	SELECT
-        apl.player_id, COALESCE(apl.player_average, 0.0) AS player_average,  apisp.team_id
-    FROM
-    (
-        SELECT
-            asp.user_id AS player_id, a.player_average AS player_average
-        FROM api_services_player AS asp
-        LEFT JOIN
-        (
-            SELECT
-                pid AS player_id, ROUND(AVG(player_score),2) AS player_average
-            FROM
-            (
-                SELECT player_id AS pid, SUM(points) AS player_score
-                FROM api_services_playerscore
-                GROUP BY player_id, game_id
-            ) player_totals GROUP BY pid
-        ) a ON asp.user_id=a.player_id
-    ) apl INNER JOIN api_services_player AS apisp ON apl.player_id=apisp.user_id;
 
-/**
-  
- */
-CREATE VIEW api_services_teamplayerscoresdbview AS
-    SELECT 
-        row_number() over () AS id, player_totals.pid AS player_id, pl.team_id,  player_totals.player_score 
-    FROM 
-    (
-        SELECT player_id AS pid, SUM(points) AS player_score 
-        FROM api_services_playerscore 
-        GROUP BY player_id, game_id
-    ) player_totals INNER JOIN api_services_player AS pl ON player_totals.pid=pl.user_id;
 ```
 
 ### Travis CI build failures
 
-```yaml
-language: python
-python:
-  - "3.9"
-
-install:
-  - pip install -r requirements.txt
-
-script:
-  - coverage run --source=api_services manage.py test --keepdb
-
-after_success:
-  - coveralls
-```
+Travis CI builds started failing after integrating with Heroku. The build server has been moved from Travis CI to CircleCI due to this issue. The issue has not been thoroughly looked into due to lack of documentation around it apart from a couple of mentions on GitHub issues pages.
 
 ### Login endpoint returns wrong error code
+
+It is recommended to respond with an `HTTP 401 UNAUTHORIZED` if the logging in fails. The login endpoint returns an `HTTP 400 BAD REQUEST`. No attempts has been made to correct this as an `HTTP 400 BAD REQUEST` seems acceptable enough.
 
 ## License
 
@@ -341,4 +295,6 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [checklist]: https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 [postmantest]: https://learning.postman.com/docs/writing-scripts/test-scripts/
 [numpy]: https://numpy.org/
+[build]: https://circleci.com/gh/pwelagedara/django_nba_starter
+[coverage]: https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main
 [mit]: https://opensource.org/licenses/MIT
