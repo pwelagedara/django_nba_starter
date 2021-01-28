@@ -49,7 +49,7 @@ In the cloud deployment section deploying on Heroku and containerized options ar
 
 Pushing the code to the source control triggers a build & deployment pipelines on Heroku and [CircleCI][circleci] respectively. The build pipeline runs the test cases and pushes the test coverage report to the [Coveralls][coveralls] dashboard. The [UptimeRobot][uptimerobot] monitoring dashboard monitors the system status. 
 
-Please click on the `GitHub badges` in the `README.md` to go to the dashboards. 
+Please click on the `GitHub badges` in the `README.md` to navigate to the aforementioned dashboards. 
 
 ![architecture](support/architecture.png?raw=true)
 
