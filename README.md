@@ -127,7 +127,7 @@ python manage.py runserver
 ./runserver.sh
 ```
 
-##### ***Step 2.5 [OPTIONAL]:*** Follow the instrucations [here](#step-25-optional-if-you-want-to-load-new-data-into-sqlite-please-use-the-following-commands-or-run-initshinitsh-helper-script) if you need to load new data.
+##### ***Step 2.5 [OPTIONAL]:*** Follow the instructions [here](#using-virtual-environments-recommended) if you need to load new data.
 
 ### Cloud deployment options
 Mention the data generation script
