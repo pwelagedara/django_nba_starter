@@ -360,3 +360,6 @@ fabric.properties
 
 .idea
 staticfiles
+
+.gitignore
+.git
