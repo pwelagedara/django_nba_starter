@@ -209,6 +209,13 @@ Database views are used to aid the 90th percentile calculation. [NumPy][numpy] i
 
 ## Helper scripts
 
+Below helper scripts are included in the codebase to facilitate development activities.
+
+- [init.sh](init.sh)
+- [migrate.sh](migrate.sh)
+- [initializedata.sh](initializedata.sh)
+- [runserver.sh](runserver.sh)
+
 ## DevOps tools
 
 ### Build status
