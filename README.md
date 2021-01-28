@@ -216,7 +216,7 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 ## DevOps tools
 
-[Build status][build], [test coverage][test] and [uptime][uptimerobot] dashboards are available seperately to provide insights into the system. 
+[Build status][build], [test coverage][coverage] and [uptime][uptimerobot] dashboards are available seperately to provide insights into the system. 
 
 > ***NOTE:*** *`Build status` dashboard is not publicly available.*
 
