@@ -220,7 +220,7 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 [Build status][build], [test coverage][coverage] and [uptime][uptimerobot] dashboards are available seperately to provide insights into the system. 
 
-> ***NOTE:*** *`Build status` dashboard is not publicly available. Nonetheless, you can check the build status in [GitHub commits page][build]. A green tick next to the commit indicates a successful build while a red cross indicates a build failure*
+> ***NOTE:*** *`Build status` dashboard is not publicly available. Nonetheless, you can check the build status in [GitHub commits page][build]. A green tick next to the commit indicates a successful build while a red cross next to the commit indicates a build failure*
 
 ## Pagination
 
