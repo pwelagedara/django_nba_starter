@@ -1,6 +1,5 @@
 import random
 
-from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.core import management
@@ -20,6 +19,7 @@ class LoginTestCase(APITestCase):
     def setUp(self):
         self.correct_password = '1qaz2wsx'
         self.wrong_password = 'thisisawrongpassword'
+        # FIXME: Do not hardcode the URL. Use reverse
         self.url = '/api/login'
         self.user = models.User.objects.create_user(
             "test@nba.com",
@@ -60,6 +60,7 @@ class UserinfoCase(APITestCase):
         self.email = "test@nba.com"
         self.name = "John Doe"
         self.role = enums.RoleChoice.COACH
+        # FIXME: Do not hardcode the URL. Use reverse
         self.url = '/api/userinfo/'
         self.user = models.User.objects.create_user(
             self.email,
@@ -107,6 +108,7 @@ class TournamentTestCase(APITestCase):
         self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
         self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
         self.tournament = models.Tournament.objects.get()
+        # FIXME: Do not hardcode the URL. Use reverse
         self.url = '/api/tournament/'
         self.invalid_token = 'thisisaninvalidtoken'
         self.invalid_tournament_id = '1234567890'
@@ -190,6 +192,7 @@ class TeamTestCase(APITestCase):
         self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
         self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
         self.teams = list(models.Team.objects.all())
+        # FIXME: Do not hardcode the URL. Use reverse
         self.url = '/api/team/'
         self.invalid_token = 'thisisaninvalidtoken'
         self.invalid_team_id = '1234567890'
@@ -274,6 +277,7 @@ class PlayerTestCase(APITestCase):
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
         self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
         self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
+        # FIXME: Do not hardcode the URL. Use reverse
         self.url = '/api/player/'
         self.invalid_token = 'thisisaninvalidtoken'
         self.invalid_player_id = '1234567890'
@@ -367,6 +371,7 @@ class AdminUserTestCase(APITestCase):
         self.admin = list(models.User.objects.filter(role=enums.RoleChoice.ADMIN))[0]
         self.coaches = list(models.User.objects.filter(role=enums.RoleChoice.COACH))
         self.players = list(models.User.objects.filter(role=enums.RoleChoice.PLAYER))
+        # FIXME: Do not hardcode the URL. Use reverse
         self.url = '/api/admin/user/'
         self.invalid_token = 'thisisaninvalidtoken'
         self.invalid_user_id = '1234567890'

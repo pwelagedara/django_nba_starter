@@ -10,6 +10,10 @@
 
 Description goes here... & my contact details( blog & email address).
 
+
+
+Fix using reverse in test cases
+
 ## Table of contents
 
 - [Getting started](#getting-started)
@@ -87,7 +91,8 @@ Python 3.9.1
 
 ## Assumptions
 
-- If the scores are equal Away Team wins as that team plays with a disadvantage
+- If the scores are equal Away Team wins as that team plays with a disadvantage 
+- This is a knockout tournament
 - Analytics data(`total_time_online`) is captured separately using Google Analytics. It is recorded in minutes in the database
 - Super Admin is the Django Super User
 - Performance optimization is not a primary concern due to the smaller dataset
@@ -95,6 +100,8 @@ Python 3.9.1
 - Supports one Tournament
 
 ## Known issues
+
+### Fix issue with 400 bad request for login endpoint
 
 ### View migration failure for Postgres on Heroku
 
