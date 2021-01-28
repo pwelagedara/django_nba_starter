@@ -203,7 +203,10 @@ You may notice that the following database views getting created in the database
 
 ## 90th percentile calculation
 
-Database views are used to aid the 90th percentile calculation. 
+Database views are used to aid the 90th percentile calculation. [NumPy][numpy] is used to obtain the 90th percentile.
+
+> ***NOTE:*** *In order to obtain the top players in the 90th percentile across the team a `top_players` query parameter must be sent. This option is only available for coaches.*
+
 ## Helper scripts
 
 ## DevOps tools
@@ -322,4 +325,5 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [venv]: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 [checklist]: https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 [postmantest]: https://learning.postman.com/docs/writing-scripts/test-scripts/
+[numpy]: https://numpy.org/
 [mit]: https://opensource.org/licenses/MIT
