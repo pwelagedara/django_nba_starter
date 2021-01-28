@@ -18,7 +18,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 
 - [Getting started](#getting-started)
   - [Local development](#local-development)
-    - [Using virtual environments](#using-virtual-environments)
+    - [Using virtual environments( recommended)](#using-virtual-environments-recommended)
     - [Without virtual environments](#without-virtual-environments)
   - [Cloud deployment options](#cloud-deployment-options)
   - [Endpoints](#endpoints)
@@ -59,7 +59,7 @@ When running the application locally the application will point to the [SQLite][
 
 [Helper scripts](#helper-scripts) are provided to prevent having to remember the commands.
 
-#### Using virtual environments
+#### Using virtual environments( recommended)
 
 Note that you need to have `virtualenv` installed on your machine in addition to the aforementioned dependencies. If you do not have it on your machine please follow the instructions [here][venv] to install it.
 Clone the project and `cd` into the project directory.
