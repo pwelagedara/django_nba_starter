@@ -84,7 +84,7 @@ python manage.py runserver
 ./runserver.sh
 ```
 
-> [OPTIONAL]: To load the data into SQlite please use the following commands or run [init.sh](init.sh) helper script.
+**Step 2.5 [OPTIONAL]:** To load the data into SQlite please use the following commands or run [init.sh](init.sh) helper script.
 ```shell
 # Delete existing database
 rm -f db.sqlite3
