@@ -198,7 +198,7 @@ pm.test("HTTP 200 OK", function () {
 
 The relationships between the database entities are as follows. To see the exact relationship( one to one, one to many etc.) please refer to [models.py](api_services/models.py).
 
-![database](support/database.png?raw=true)
+![database](support/database-v2.png?raw=true)
 
 ### Use of database views
 
