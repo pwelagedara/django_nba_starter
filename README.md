@@ -165,7 +165,7 @@ For production deployments please follow the checklist [here][checklist].
 
 Import [DJANGO_NBA_STARTER.postman_collection.json](support/DJANGO_NBA_STARTER.postman_collection.json), [LOCAL.postman_environment.json](support/LOCAL.postman_environment.json) and [HEROKU.postman_environment.json](support/HEROKU.postman_environment.json) into Postman.
 
-A new Postman collection will be available with the name `DJANGO_NBA_STARTER`. Before making the request, pick the Postman environment you want to point to. Note that `token`s and `id`s are automatically assigned as environment variables from previous responses to prevent having to copy values from one request to another.
+A new Postman collection will be available with the name `DJANGO_NBA_STARTER`. Before making any request, pick the Postman environment you want to point to. Note that `token`s and `id`s are automatically assigned as environment variables from previous responses to prevent having to copy values from one request to another.
 
 ![architecture](support/postman.png?raw=true)
 
