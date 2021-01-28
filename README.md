@@ -10,7 +10,7 @@
 
 This [Django][django] project is a starter project for managing a basketball tournament. Do note that this implementation makes [assumptions](#assumptions) to simplify the implementation.
 
-This code has been deployed [here][deployment] on [Heroku][heroku] backed by a [PostgreSQL][postgresql] database for demonstration purposes. Please refer to [Using the Postman collection](#using-the-postman-collection) to learn how to invoke the APIs.
+The code has been deployed [here][deployment] on [Heroku][heroku] backed by a [PostgreSQL][postgresql] database for demonstration purposes. Please refer to [Using the Postman collection](#using-the-postman-collection) to learn how to invoke the APIs.
 
 Be sure to visit my [blog][blog] to check out my other work.
 
@@ -20,7 +20,7 @@ Be sure to visit my [blog][blog] to check out my other work.
   - [Local development environment](#local-development-environment)
     - [Using virtual environments](#using-virtual-environments)
     - [Without virtual environments](#without-virtual-environments)
-  - [Cloud deployment](#cloud-deployment)
+  - [Cloud deployment options](#cloud-deployment-options)
   - [Endpoints](#endpoints)
 - [Using the Postman collection](#using-the-postman-collection)
   - [Pre request scripts](#pre-request-scripts)
@@ -32,7 +32,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 - [Database configuration](#database-configuration)
     - [Database model](#database-model)
     - [Use of database views](#use-of-database-views)
-- [90th Percentile Calculation](#90th-percentile-calculation)
+- [90th percentile calculation](#90th-percentile-calculation)
 - [Performance optimizations](#performance-optimizations)
 - [Exception handling](#exception-handling)
 - [Assumptions](#assumptions)
@@ -44,6 +44,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 ## Getting started
 
 Mention the data generation script. Also mention the url and credentials( mention that you will share the password seperately) to heroku. 
+![alt text](support/architecture.png?raw=true)
 
 ### Local development environment
 
@@ -57,7 +58,7 @@ Python 3.9.1
 ```
 #### Without virtual environments
 
-### Cloud deployment
+### Cloud deployment options
 
 ### Endpoints
 
@@ -78,10 +79,10 @@ Python 3.9.1
 ## Database configuration
 
 ### Database model
-
+![alt text](support/database-model.png?raw=true)
 ### Use of database views
 
-## 90th Percentile Calculation
+## 90th percentile calculation
 
 ## Pagination
 
