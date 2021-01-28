@@ -104,7 +104,11 @@ python manage.py createsuperuser
 python manage.py initializedata
 ```
 
-##### Running on Docker
+#### Without virtual environments
+
+> ***NOTE:*** *It has been observed that Django management commands threw errors when executed from a shell script. I have made no attempts to solve this issue. Avoid using helper scripts here.* 
+
+#### Running on Docker
 
 To run the image locally execute the following command. If you want to build the docker images yourself use the [Dockerfile](Dockerfile) included.
 
@@ -114,10 +118,6 @@ docker run -p 8000:8000 pubuduwelagedara/djnba
 ```
 
 > ***NOTE:*** *Use the [Dockerfile](Dockerfile) in the repo as a starting point to build a production grade image. Be sure to update [.dockerignore](.dockerignore) to prevent unwanted files getting copied into the container image.*
-
-#### Without virtual environments
-
-> ***NOTE:*** *It has been observed that Django management commands threw errors when executed from a shell script. I have made no attempts to solve this issue. Avoid using helper scripts here.* 
 
 ##### ***Step 1:*** Clone the project and `cd` into the project directory.
 ```shell
