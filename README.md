@@ -17,7 +17,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 ## Table of contents
 
 - [Getting started](#getting-started)
-  - [Local development environment](#local-development-environment)
+  - [Local development](#local-developmen)
     - [Using virtual environments](#using-virtual-environments)
     - [Without virtual environments](#without-virtual-environments)
   - [Cloud deployment options](#cloud-deployment-options)
@@ -43,11 +43,16 @@ Be sure to visit my [blog][blog] to check out my other work.
 
 ## Getting started
 
-Mention the data generation script. Also mention the url and credentials( mention that you will share the password seperately) to heroku. 
-![alt text](support/architecture.png?raw=true)
+If you want to run the project locally pick the local development option here. It is assumed that you have set up your development machine with `Python` and `pip`. 
 
-### Local development environment
+In the cloud deployment section deploying on Heroku and containerized options are discussed.
 
+Pushing the code to the source control triggers a build & deployment pipelines on Heroku and [CircleCI][circleci] respectively. The build pipeline runs the test cases and pushes the test coverage report to the [Coveralls][coveralls] dashboard. The [UptimeRobot][uptimerobot] monitoring dashboard monitors the system status. Please click on the `GitHub badges` in the README.md to go to the dashboards. 
+
+![architecture](support/architecture.png?raw=true)
+
+### Local development
+Mention the data generation script
 #### Using virtual environments
 ```
 pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % python -m venv venv
@@ -59,7 +64,8 @@ Python 3.9.1
 #### Without virtual environments
 
 ### Cloud deployment options
-
+Mention the data generation script
+. Also mention the url and credentials( mention that you will share the password seperately) to heroku. 
 ### Endpoints
 
 ## Using the Postman collection
@@ -189,4 +195,7 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [deployment]: https://django-nba-services.herokuapp.com/api/
 [postgresql]: https://www.postgresql.org/
 [heroku]: https://www.heroku.com/
+[circleci]: https://circleci.com/
+[coveralls]: https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main
+[uptimerobot]: https://stats.uptimerobot.com/E1wwzTWjDB/787020082
 [mit]: https://opensource.org/licenses/MIT
