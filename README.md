@@ -8,11 +8,11 @@
 [![pwelagedara](https://circleci.com/gh/pwelagedara/django_nba_starter.svg?style=shield)](https://circleci.com/gh/pwelagedara/django_nba_starter)
 [![Coverage Status](https://coveralls.io/repos/github/pwelagedara/django_nba_starter/badge.svg?branch=main)](https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main)
 
-Description goes here... & my contact details( blog & email address).
+This [Django][django] project is a starter project for managing a basketball tournament. Do note that this implementation makes [assumptions](#assumptions) to simplify the implementation.
 
+This code has been deployed [here][deployment] on [Heroku](heroku) backed by a [PostgreSQL][postgresql] database for demonstration purposes. Please refer to [Using the Postman collection](#using-the-postman-collection) to learn how to invoke the APIs.
 
-
-Fix using reverse in test cases
+Be sure to visit my [blog][blog] to check out my other work.
 
 ## Table of contents
 
@@ -179,11 +179,13 @@ after_success:
 ```
 ## License
 
-https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-
-https://django-nba-services.herokuapp.com
-https://www.programmersought.com/article/1055642878/
-https://www.programmersought.com/article/6540642829/
-
+The Project is under [MIT][mit] License. Internet is meant to be free. Use this code anyway you like.
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+[django]: https://www.djangoproject.com/
+[blog]: https://pwelagedara.com
+[deployment]: https://django-nba-services.herokuapp.com/api/
+[postgresql]: https://www.postgresql.org/
+[heroku]: https://www.heroku.com/
+[mit]: https://opensource.org/licenses/MIT
