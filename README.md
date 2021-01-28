@@ -10,7 +10,7 @@
 
 This [Django][django] project is a starter project for managing a basketball tournament. Do note that this implementation makes [assumptions](#assumptions) to simplify the implementation.
 
-This code has been deployed [here][deployment] on [Heroku](heroku) backed by a [PostgreSQL][postgresql] database for demonstration purposes. Please refer to [Using the Postman collection](#using-the-postman-collection) to learn how to invoke the APIs.
+This code has been deployed [here][deployment] on [Heroku][heroku] backed by a [PostgreSQL][postgresql] database for demonstration purposes. Please refer to [Using the Postman collection](#using-the-postman-collection) to learn how to invoke the APIs.
 
 Be sure to visit my [blog][blog] to check out my other work.
 
