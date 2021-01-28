@@ -49,7 +49,7 @@ Pushing the code to the source control triggers a build & deployment pipelines o
 
 Please click on the `GitHub badges` in the `README.md` to navigate to the aforementioned dashboards. 
 
-![architecture](support/architecture.png?raw=true)
+![architecture](support/architecture-v2.png?raw=true)
 
 ### Local development
 
