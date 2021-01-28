@@ -12,17 +12,17 @@ This [Django][django] project is a starter project for managing a basketball tou
 
 The code has been deployed [here][deployment] on [Heroku][heroku] backed by a [PostgreSQL][postgresql] database for demonstration purposes. Please refer to [Using the Postman collection](#using-the-postman-collection) to learn how to invoke the APIs.
 
-Be sure to visit my [blog][blog] to check out my other work.
+Be sure to visit my [blog][blog] to find out about my other work.
 
 ## Table of contents
 
 - [Getting started](#getting-started)
   - [Local development](#local-development)
-    - [Using virtual environments( recommended)](#using-virtual-environments-recommended)
+    - [Using virtual environments( recommended)❗](#using-virtual-environments-recommended)
     - [Without virtual environments](#without-virtual-environments)
   - [Cloud deployment options](#cloud-deployment-options)
   - [Endpoints](#endpoints)
-- [Using the Postman collection](#using-the-postman-collection)
+- [Using the Postman collection❗](#using-the-postman-collection)
   - [Getting started with Postman](#getting-started-with-postman)
   - [Postman tests](#postman-tests)
 - [Database configuration](#database-configuration)
@@ -31,14 +31,12 @@ Be sure to visit my [blog][blog] to check out my other work.
 - [90th percentile calculation](#90th-percentile-calculation)
 - [Helper scripts](#helper-scripts)
 - [DevOps tools](#devops-tools)
-  - [Build status](#build-status)
-  - [Test coverage](#test-coverage)
-  - [Uptime](#uptime)
 - [Pagination](#pagination)
 - [Assumptions](#assumptions)
 - [Known issues](#known-issues)
   - [View migration failure for PostgreSQL on Heroku](#view-migration-failure-for-postgresql-on-heroku)
   - [Travis CI build failures](#travis-ci-build-failures)
+  - [Login endpoint returns wrong error code](#login-endpoint-returns-wrong-error-code)
 - [License❗](#license)
 
 ## Getting started
@@ -203,7 +201,7 @@ You may notice that the following database views getting created in the database
 
 ## 90th percentile calculation
 
-Database views are used to aid the 90th percentile calculation. [NumPy][numpy] is used to obtain the 90th percentile.
+[Database views](#use-of-database-views) are used to aid the 90th percentile calculation. [NumPy][numpy] is used to obtain the 90th percentile.
 
 > ***NOTE:*** *In order to obtain the top players in the 90th percentile across the team a `top_players` query parameter must be sent. This option is only available for coaches.*
 
@@ -218,6 +216,8 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 ## DevOps tools
 
+
+
 ### Build status
 
 ### Test coverage
@@ -226,19 +226,22 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 ## Pagination
 
+Requests returning a list of objects are paginated by design. This decision has been made with the intention to prevent massive server loads. 
+
+Query params `page` and `page_size` can be optionally supplied to set the page and size. Note that both these parameters must be greater than 0.
+
 ## Assumptions
 
-- If the scores are equal Away Team wins as that team plays with a disadvantage 
-- This is a knockout tournament
-- Analytics data(`total_time_online`) is captured separately using Google Analytics. It is recorded in minutes in the database
-- Super Admin is the Django Super User
-- Performance optimization is not a primary concern due to the smaller dataset
-- Home Team and Away Team in a game
-- Supports one Tournament
+The following assumptions have been made to facilitate the development of the project.
+
+- This is a knockout tournament.
+- There is a home team and an away team in any game. The game is played in the home team's arena.
+- If the scores are equal away team wins as that team plays with a disadvantage.
+- Analytics data(`total_time_online`, `is_online` etc.) is captured separately using Google Analytics or similar tools. It is recorded in minutes.
+- Performance optimization is not a primary concern due to the smaller dataset.
+- Only one tournament is supported despite having a `tournament` table in the database.
 
 ## Known issues
-
-### Fix issue with 400 bad request for login endpoint
 
 ### View migration failure for PostgreSQL on Heroku
 
@@ -314,6 +317,9 @@ script:
 after_success:
   - coveralls
 ```
+
+### Login endpoint returns wrong error code
+
 ## License
 
 The Project is under [MIT][mit] License. Internet is meant to be free. Use this code anyway you like.
