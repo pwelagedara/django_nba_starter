@@ -28,13 +28,13 @@ Be sure to visit my [blog][blog] to check out my other work.
 - [Database configuration](#database-configuration)
     - [Database model](#database-model)
     - [Use of database views](#use-of-database-views)
-- [Helper scripts](#helper-scripts)
-- [Build status](#build-status)
-- [Test coverage](#test-coverage)
-- [Uptime](#uptime)
 - [90th percentile calculation](#90th-percentile-calculation)
-- [Performance optimizations](#performance-optimizations)
-- [Exception handling](#exception-handling)
+- [Helper scripts](#helper-scripts)
+- [DevOps tools](#devops-tools)
+  - [Build status](#build-status)
+  - [Test coverage](#test-coverage)
+  - [Uptime](#uptime)
+- [Pagination](#pagination)
 - [Assumptions](#assumptions)
 - [Known issues](#known-issues)
   - [View migration failure for PostgreSQL on Heroku](#view-migration-failure-for-postgresql-on-heroku)
@@ -170,24 +170,36 @@ For production deployments please follow the checklist [here][checklist].
 ## Database configuration
 
 ### Database model
+
+The relationships between the database entities are as follows. To see the exact relationship( one to one, one to many etc.) please refer to [models.py](api_services/models.py).
+
 ![alt text](support/database.png?raw=true)
+
 ### Use of database views
 
-## Helper scripts
+Performing intensive calculations when a request arrives can cause the system to slow down or in the worst case crash. 
 
-## Build status
+Some calculations are performed in the database by using database views to minimize the load.
 
-## Test coverage
+You may notice that the following database views getting created in the database in addition to the tables.
 
-## Uptime
+- `api_services_gamescoresdbview`
+- `api_services_playeraveragedbview`
+- `api_services_teamplayerscoresdbview`
 
 ## 90th percentile calculation
 
+## Helper scripts
+
+## DevOps tools
+
+### Build status
+
+### Test coverage
+
+### Uptime
+
 ## Pagination
-
-## Performance optimizations
-
-## Exception handling
 
 ## Assumptions
 
