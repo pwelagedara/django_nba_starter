@@ -135,16 +135,18 @@ The project has been configured to be deployed on Heroku with minimal effort for
 If database views do not get created [run the commands manually](#view-migration-failure-for-postgresql-on-heroku) to create them.
 
 ```shell
-heroku run python manage.py makemigrations -a <app name>
-heroku run python manage.py makeviewmigrations -a <app name>
-heroku run python manage.py migrate -a <app name>
-heroku run python manage.py createsuperuser -a <app name>
-heroku run python manage.py initializedata -a <app name>
+heroku run python manage.py makemigrations -a APP_NAME
+heroku run python manage.py makeviewmigrations -a APP_NAME
+heroku run python manage.py migrate -a APP_NAME
+heroku run python manage.py createsuperuser -a APP_NAME
+heroku run python manage.py initializedata -a APP_NAME
 ```
 
 For production deployments please follow the checklist [here][checklist].
 
 ### Endpoints
+
+> ***NOTE:*** *Django super user is tagged as the super admin. If you have created the super user you can access Django admin panel on http(s)://YOUR_HOST:YOUR_PORT/admin*
 
 | Endpoint             | Authenticated | Authorized user roles             |
 |----------------------|---------------|-----------------------------------|
