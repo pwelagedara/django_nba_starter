@@ -47,7 +47,9 @@ If you want to run the project locally pick the local development option here. I
 
 In the cloud deployment section deploying on Heroku and containerized options are discussed.
 
-Pushing the code to the source control triggers a build & deployment pipelines on Heroku and [CircleCI][circleci] respectively. The build pipeline runs the test cases and pushes the test coverage report to the [Coveralls][coveralls] dashboard. The [UptimeRobot][uptimerobot] monitoring dashboard monitors the system status. Please click on the `GitHub badges` in the README.md to go to the dashboards. 
+Pushing the code to the source control triggers a build & deployment pipelines on Heroku and [CircleCI][circleci] respectively. The build pipeline runs the test cases and pushes the test coverage report to the [Coveralls][coveralls] dashboard. The [UptimeRobot][uptimerobot] monitoring dashboard monitors the system status. 
+
+Please click on the `GitHub badges` in the `README.md` to go to the dashboards. 
 
 ![architecture](support/architecture.png?raw=true)
 
