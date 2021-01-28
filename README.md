@@ -17,7 +17,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 ## Table of contents
 
 - [Getting started](#getting-started)
-  - [Local development](#local-developmen)
+  - [Local development](#local-development)
     - [Using virtual environments](#using-virtual-environments)
     - [Without virtual environments](#without-virtual-environments)
   - [Cloud deployment options](#cloud-deployment-options)
@@ -43,7 +43,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 
 ## Getting started
 
-If you want to run the project locally pick the local development option here. It is assumed that you have set up your development machine with `Python` and `pip`. 
+If you want to run the project locally pick the local development option here. It is assumed that you have set up your development machine with `git`, `Python`, `pip` and any other dependencies. 
 
 In the cloud deployment section deploying on Heroku and containerized options are discussed.
 
@@ -54,15 +54,57 @@ Please click on the `GitHub badges` in the `README.md` to navigate to the aforem
 ![architecture](support/architecture.png?raw=true)
 
 ### Local development
-Mention the data generation script
+
+When running the application locally the application will point to the [SQLite][sqlite] db. The database with the data is included with the source code to get started without having to run the DDL and DML scripts.
+
+[Helper scripts](#helper-scripts) are provided to prevent having to remember the commands.
+
 #### Using virtual environments
+
+Note that you need to have `virtualenv` installed on your machine in addition to the aforementioned dependencies. If you do not have it on your machine please follow the instructions [here][venv] to install it.
+Clone the project and `cd` into the project directory.
+```shell
+git clone https://github.com/pwelagedara/django_nba_starter
+cd django_nba_starter
 ```
-pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % python -m venv venv
-pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % source ./venv/bin/activate
-(venv) pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % python --version
-Python 3.9.1
-(venv) pubuduwelagedara@pubudus-MacBook-Air django_nba_starter % pip install -r requirements.txt
+
+Create the virtual environment, activate virtual environment and install the dependencies.
+```shell
+python -m venv venv
+source ./venv/bin/activate
+pip install -r requirements.txt
 ```
+
+Run the project. Optionally you can load a new dataset.
+```shell
+python manage.py runserver
+
+# OR use the helper script
+./runserver.sh
+```
+
+To load the data into SQlite please use the following commands or run [init.sh](init.sh) helper script.
+```shell
+# Delete existing database
+rm -f db.sqlite3
+
+# Make migrations
+python manage.py makemigrations
+
+# Make view migrations
+python manage.py makeviewmigrations
+
+# Migrate
+python manage.py migrate
+
+# Create super user if you want to log into Django admon
+python manage.py createsuperuser
+
+# Initialize data using management commands
+python manage.py initializedata
+```
+
+
 #### Without virtual environments
 
 ### Cloud deployment options
@@ -200,4 +242,6 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [circleci]: https://circleci.com/
 [coveralls]: https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main
 [uptimerobot]: https://stats.uptimerobot.com/E1wwzTWjDB/787020082
+[sqlite]: https://sqlite.org/index.html
+[venv]: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 [mit]: https://opensource.org/licenses/MIT
