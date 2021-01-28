@@ -82,7 +82,7 @@ python manage.py runserver
 ./runserver.sh
 ```
 
-##### ***Step 2.5 [OPTIONAL]:*** If you want to load new data into SQlite please use the following commands or run [init.sh](init.sh) helper script.
+##### ***[OPTIONAL]:*** If you want to load new data into SQLite please use the following commands or run [init.sh](init.sh) helper script before running the project( Step 3).
 ```shell
 # Delete existing database
 rm -f db.sqlite3
@@ -171,7 +171,9 @@ A new Postman collection will be available with the name `DJANGO_NBA_STARTER`. B
 
 ### Postman tests
 
-All endpoints must return an `HTTP 200 OK` upon successful return. A simple [Postman test][postmantest] is performed to test that.
+All endpoints must return an `HTTP 200 OK` upon successful return. A [Postman test][postmantest] is utilized to validate the response status codes. 
+
+Build upon this to run more advanced automated tests.
 
 ```javascript
 pm.test("HTTP 200 OK", function () {
@@ -185,7 +187,7 @@ pm.test("HTTP 200 OK", function () {
 
 The relationships between the database entities are as follows. To see the exact relationship( one to one, one to many etc.) please refer to [models.py](api_services/models.py).
 
-![alt text](support/database.png?raw=true)
+![database](support/database.png?raw=true)
 
 ### Use of database views
 
@@ -193,7 +195,7 @@ Performing intensive calculations when a request arrives can cause the system to
 
 Some calculations are performed in the database by using database views to minimize the load.
 
-You may notice that the following database views are getting created in the database in addition to the tables.
+You may observe that the following database views are getting created in addition to the tables.
 
 - `api_services_gamescoresdbview`
 - `api_services_playeraveragedbview`
