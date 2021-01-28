@@ -37,7 +37,7 @@ Be sure to visit my [blog][blog] to check out my other work.
 - [Exception handling](#exception-handling)
 - [Assumptions](#assumptions)
 - [Known issues](#known-issues)
-  - [View migration failure for Postgres on Heroku](#view-migration-failure-for-postgres-on-heroku)
+  - [View migration failure for PostgreSQL on Heroku](#view-migration-failure-for-postgresql-on-heroku)
   - [Travis CI build failures](#travis-ci-build-failures)
 - [License❗](#license)
 
@@ -129,9 +129,35 @@ python manage.py runserver
 ##### ***Step 2.5 [OPTIONAL]:*** Follow the instructions [here](#using-virtual-environments-recommended) if you need to load new data.
 
 ### Cloud deployment options
-Mention the data generation script
-. Also mention the url and credentials( mention that you will share the password seperately) to heroku. 
+
+The project has been configured to be deployed on Heroku with minimal effort for development purposes. Use heroku commandline to update the database once the database gets created. 
+
+If database views do not get created [run the commands manually](#view-migration-failure-for-postgresql-on-heroku) to create them.
+
+```shell
+heroku run python manage.py makemigrations -a <app name>
+heroku run python manage.py makeviewmigrations -a <app name>
+heroku run python manage.py migrate -a <app name>
+heroku run python manage.py createsuperuser -a <app name>
+heroku run python manage.py initializedata -a <app name>
+```
+
+For production deployments please follow the checklist [here][checklist].
+
 ### Endpoints
+
+| Endpoint             | Authenticated | Authorized user roles             |
+|----------------------|---------------|-----------------------------------|
+| POST /token          | Yes           | All                               |
+| GET /userinfo        | Yes           | All                               |
+| GET /tournament      | Yes           | All                               |
+| GET /tournament/{id} | Yes           | All                               |
+| GET /team            | Yes           | Super admin, admin, coach         |
+| GET /team/{id}       | Yes           | Super admin, admin, coach         |
+| GET /player          | Yes           | Super admin, admin, coach         |
+| GET /player/{id}     | Yes           | Super admin, admin, coach, player |
+| GET /admin/user      | Yes           | Super admin, admin                |
+| GET /admin/user/{id} | Yes           | Super admin, admin                |
 
 ## Using the Postman collection
 
@@ -175,7 +201,7 @@ Mention the data generation script
 
 ### Fix issue with 400 bad request for login endpoint
 
-### View migration failure for Postgres on Heroku
+### View migration failure for PostgreSQL on Heroku
 
 ```sql
 /**
@@ -265,4 +291,5 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [uptimerobot]: https://stats.uptimerobot.com/E1wwzTWjDB/787020082
 [sqlite]: https://sqlite.org/index.html
 [venv]: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+[checklist]: https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 [mit]: https://opensource.org/licenses/MIT
