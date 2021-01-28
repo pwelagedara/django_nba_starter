@@ -291,7 +291,7 @@ It is recommended to respond with an `HTTP 401 UNAUTHORIZED` if the logging in f
 
 ## License
 
-The Project is under [MIT][mit] License. Internet is meant to be free. Use this code anyway you like.
+The Project is under [MIT][mit] License. Internet is meant to be free. Use this code any way you like.
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
