@@ -184,3 +184,6 @@ https://packaging.python.org/guides/installing-using-pip-and-virtual-environment
 https://django-nba-services.herokuapp.com
 https://www.programmersought.com/article/1055642878/
 https://www.programmersought.com/article/6540642829/
+
+
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
