@@ -5,7 +5,7 @@
 [![GitHub](https://img.shields.io/github/license/pwelagedara/django_nba_starter)](https://github.com/pwelagedara/django_nba_starter/blob/main/LICENSE)
 [![GitHub](https://img.shields.io/badge/python-v3.9.1-blue)](https://www.python.org/downloads/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/pwelagedara/django_nba_starter)](https://github.com/pwelagedara/django_nba_starter/graphs/commit-activity)
-[![pwelagedara](https://circleci.com/gh/pwelagedara/django_nba_starter.svg?style=shield)](https://circleci.com/gh/pwelagedara/django_nba_starter)
+[![pwelagedara](https://circleci.com/gh/pwelagedara/django_nba_starter.svg?style=shield)](https://github.com/pwelagedara/django_nba_starter/commits/main)
 [![Coverage Status](https://coveralls.io/repos/github/pwelagedara/django_nba_starter/badge.svg?branch=main)](https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main)
 
 This [Django][django] project is a starter project for managing a basketball tournament. Do note that this implementation makes [assumptions](#assumptions) to simplify the implementation.
@@ -220,7 +220,7 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 [Build status][build], [test coverage][coverage] and [uptime][uptimerobot] dashboards are available seperately to provide insights into the system. 
 
-> ***NOTE:*** *`Build status` dashboard is not publicly available.*
+> ***NOTE:*** *`Build status` dashboard is not publicly available. Nonetheless, you can check the build status in [GitHub commits page][build]. A green tick next to the commit indicates a successful build while a red cross indicates a build failure*
 
 ## Pagination
 
@@ -297,6 +297,6 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [checklist]: https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 [postmantest]: https://learning.postman.com/docs/writing-scripts/test-scripts/
 [numpy]: https://numpy.org/
-[build]: https://circleci.com/gh/pwelagedara/django_nba_starter
+[build]: https://github.com/pwelagedara/django_nba_starter/commits/main
 [coverage]: https://coveralls.io/github/pwelagedara/django_nba_starter?branch=main
 [mit]: https://opensource.org/licenses/MIT
