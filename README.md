@@ -246,8 +246,8 @@ Query params `page` and `page_size` can be optionally supplied to set the page a
 The following assumptions have been made to facilitate the development of the project.
 
 - This is a knockout tournament.
-- There is a home team and an away team in any game. The game is played in the home team's arena.
-- If the scores are equal away team wins as that team plays with a disadvantage.
+- There is a `home team` and an `away team` in any game. The game is played in `home team`'s arena.
+- If the scores are equal `away team` wins as that team plays with a disadvantage.
 - Analytics data(`total_time_online`, `is_online` etc.) is captured separately using Google Analytics or similar tools. It is recorded in minutes.
 - Performance optimization is not a primary concern due to the smaller dataset.
 - Only one tournament is supported despite having a `tournament` table in the database.
