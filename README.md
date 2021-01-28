@@ -173,7 +173,7 @@ A new Postman collection will be available with the name `DJANGO_NBA_STARTER`. B
 
 ### Postman tests
 
-All endpoints must return an `HTTP 200 OK` upon successful return. A simple [Postman test][postmantest] is performed.
+All endpoints must return an `HTTP 200 OK` upon successful return. A simple [Postman test][postmantest] is performed to test that.
 
 ```javascript
 pm.test("HTTP 200 OK", function () {
@@ -203,6 +203,7 @@ You may notice that the following database views getting created in the database
 
 ## 90th percentile calculation
 
+Database views are used to aid the 90th percentile calculation. 
 ## Helper scripts
 
 ## DevOps tools
