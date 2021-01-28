@@ -25,13 +25,13 @@ Be sure to visit my [blog][blog] to check out my other work.
 - [Using the Postman collection](#using-the-postman-collection)
   - [Pre request scripts](#pre-request-scripts)
   - [Postman tests](#postman-tests)
+- [Database configuration](#database-configuration)
+    - [Database model](#database-model)
+    - [Use of database views](#use-of-database-views)
 - [Helper scripts](#helper-scripts)
 - [Build status](#build-status)
 - [Test coverage](#test-coverage)
 - [Uptime](#uptime)
-- [Database configuration](#database-configuration)
-    - [Database model](#database-model)
-    - [Use of database views](#use-of-database-views)
 - [90th percentile calculation](#90th-percentile-calculation)
 - [Performance optimizations](#performance-optimizations)
 - [Exception handling](#exception-handling)
@@ -167,6 +167,12 @@ For production deployments please follow the checklist [here][checklist].
 
 ### Postman tests
 
+## Database configuration
+
+### Database model
+![alt text](support/database.png?raw=true)
+### Use of database views
+
 ## Helper scripts
 
 ## Build status
@@ -174,12 +180,6 @@ For production deployments please follow the checklist [here][checklist].
 ## Test coverage
 
 ## Uptime
-
-## Database configuration
-
-### Database model
-![alt text](support/database.png?raw=true)
-### Use of database views
 
 ## 90th percentile calculation
 
