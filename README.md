@@ -108,17 +108,6 @@ python manage.py initializedata
 
 > ***NOTE:*** *It has been observed that Django management commands threw errors when executed from a shell script. I have made no attempts to solve this issue. Avoid using helper scripts here.* 
 
-#### Running on Docker
-
-To run the image locally execute the following command. If you want to build the docker images yourself use the [Dockerfile](Dockerfile) included.
-
-```shell
-# Exposes the container port 8000 on port 8000 on your local machine
-docker run -p 8000:8000 pubuduwelagedara/djnba
-```
-
-> ***NOTE:*** *Use the [Dockerfile](Dockerfile) in the repo as a starting point to build a production grade image. Be sure to update [.dockerignore](.dockerignore) to prevent unwanted files getting copied into the container image.*
-
 ##### ***Step 1:*** Clone the project and `cd` into the project directory.
 ```shell
 git clone https://github.com/pwelagedara/django_nba_starter
@@ -135,7 +124,18 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
-##### ***Step 2.5 [OPTIONAL]:*** Follow the instructions [here](#using-virtual-environments-recommended) if you need to load new data.
+##### ***[OPTIONAL]:*** Follow the instructions [here](#using-virtual-environments-recommended) if you need to load new data.
+
+#### Running on Docker
+
+To run the image locally execute the following command. If you want to build the docker images yourself use the [Dockerfile](Dockerfile) included.
+
+```shell
+# Exposes the container port 8000 on port 8000 on your local machine
+docker run -p 8000:8000 pubuduwelagedara/djnba
+```
+
+> ***NOTE:*** *Use the [Dockerfile](Dockerfile) in the repo as a starting point to build a production grade image. Be sure to update [.dockerignore](.dockerignore) to prevent unwanted files getting copied into the container image.*
 
 ### Cloud deployment options
 
