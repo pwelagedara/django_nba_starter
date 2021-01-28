@@ -23,7 +23,7 @@ Be sure to visit my [blog][blog] to check out my other work.
   - [Cloud deployment options](#cloud-deployment-options)
   - [Endpoints](#endpoints)
 - [Using the Postman collection](#using-the-postman-collection)
-  - [Pre request scripts](#pre-request-scripts)
+  - [Getting started with Postman](#getting-started-with-postman)
   - [Postman tests](#postman-tests)
 - [Database configuration](#database-configuration)
     - [Database model](#database-model)
@@ -163,9 +163,23 @@ For production deployments please follow the checklist [here][checklist].
 
 ## Using the Postman collection
 
-### Pre request scripts
+### Getting started with Postman
+
+Import [DJANGO_NBA_STARTER.postman_collection.json](support/DJANGO_NBA_STARTER.postman_collection.json), [LOCAL.postman_environment.json](support/LOCAL.postman_environment.json) and [HEROKU.postman_environment.json](support/HEROKU.postman_environment.json) into Postman.
+
+A new Postman collection will be available with the name `DJANGO_NBA_STARTER`. Before making the request, pick the Postman environment you want to point to. Note that `token`s and `id`s are automatically assigned as environment variables from previous responses to prevent having to copy values from one request to another.
+
+![architecture](support/postman.png?raw=true)
 
 ### Postman tests
+
+All endpoints must return an `HTTP 200 OK` upon successful return. A simple [Postman test][postmantest] is performed.
+
+```javascript
+pm.test("HTTP 200 OK", function () {
+    pm.response.to.have.status(200);
+});
+```
 
 ## Database configuration
 
@@ -306,4 +320,5 @@ The Project is under [MIT][mit] License. Internet is meant to be free. Use this 
 [sqlite]: https://sqlite.org/index.html
 [venv]: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 [checklist]: https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
+[postmantest]: https://learning.postman.com/docs/writing-scripts/test-scripts/
 [mit]: https://opensource.org/licenses/MIT
