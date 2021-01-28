@@ -108,6 +108,8 @@ python manage.py initializedata
 
 #### Without virtual environments
 
+> *It has been observed that Django management commands threw errors when executed from a shell script. Therefore do not use the helper scripts here.* 
+
 ##### ***Step 1:*** Clone the project and `cd` into the project directory.
 ```shell
 git clone https://github.com/pwelagedara/django_nba_starter
@@ -122,9 +124,6 @@ pip install -r requirements.txt
 ##### ***Step 3:*** Run the project. Optionally you can load a new dataset.
 ```shell
 python manage.py runserver
-
-# OR use the helper script
-./runserver.sh
 ```
 
 ##### ***Step 2.5 [OPTIONAL]:*** Follow the instructions [here](#using-virtual-environments-recommended) if you need to load new data.
