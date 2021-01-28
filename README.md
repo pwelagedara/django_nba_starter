@@ -106,7 +106,7 @@ python manage.py initializedata
 
 #### Without virtual environments
 
-> ***NOTE:*** *It has been observed that Django management commands threw errors when executed from a shell script. No attempt has been made to solve the issue. Thus do not use helper scripts here.* 
+> ***NOTE:*** *It has been observed that Django management commands threw errors when executed from a shell script. I have made no attempts to solve this issue. Avoid using helper scripts here.* 
 
 ##### ***Step 1:*** Clone the project and `cd` into the project directory.
 ```shell
