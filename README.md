@@ -228,7 +228,9 @@ Below helper scripts are included in the codebase to facilitate development acti
 
 Requests returning a list of objects are paginated by design. This decision has been made with the intention to prevent massive server loads. 
 
-Query params `page` and `page_size` can be optionally supplied to set the page and size. Note that both these parameters must be greater than 0.
+Query params `page` and `page_size` can be optionally supplied to set the page and size. 
+
+> ***NOTE:*** *Both `page` and `page_size` parameters must be greater than 0.*
 
 ## Assumptions
 
