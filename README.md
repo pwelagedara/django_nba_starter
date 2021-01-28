@@ -150,7 +150,7 @@ Mention the data generation script
 ## Database configuration
 
 ### Database model
-![alt text](support/database-model.png?raw=true)
+![alt text](support/database-schema.png?raw=true)
 ### Use of database views
 
 ## 90th percentile calculation
