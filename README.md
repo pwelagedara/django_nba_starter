@@ -155,7 +155,7 @@ For production deployments please follow the checklist [here][checklist].
 | GET /team            | Yes           | Super admin, admin, coach         |
 | GET /team/{id}       | Yes           | Super admin, admin, coach         |
 | GET /player          | Yes           | Super admin, admin, coach         |
-| GET /player/{id}     | Yes           | Super admin, admin, coach, player |
+| GET /player/{id}     | Yes           | Super admin, admin, coach         |
 | GET /admin/user      | Yes           | Super admin, admin                |
 | GET /admin/user/{id} | Yes           | Super admin, admin                |
 
